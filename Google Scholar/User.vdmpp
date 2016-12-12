@@ -1,11 +1,10 @@
 class User
 	types
-	-- TODO Define types here
 	values
 	-- TODO Define values here
 	instance variables
-		private email: seq of char := [];
-		private password: seq of char := [];
+		private email: Utils`String := [];
+		private password: Utils`String := [];
 	operations
 	-- TODO Define operations here
 	functions

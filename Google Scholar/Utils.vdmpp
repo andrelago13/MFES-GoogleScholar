@@ -1,16 +1,14 @@
-class Paper
+class Utils
 	types
-	-- TODO Define types here
+		public String = seq of char;
 	values
 	-- TODO Define values here
 	instance variables
-		abstract: Utils`String := [];
-		publicationDate: int := 0;
-		DOI: Utils`String := [];
+	-- TODO Define instance variables here
 	operations
 	-- TODO Define operations here
 	functions
 	-- TODO Define functiones here
 	traces
 	-- TODO Define Combinatorial Test Traces here
-end Paper
+end Utils
