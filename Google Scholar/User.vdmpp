@@ -1,14 +1,21 @@
 class User
 	types
+	
 	values
 	-- TODO Define values here
+	
 	instance variables
 		private email: Utils`String := [];
 		private password: Utils`String := [];
+		
 	operations
 	-- TODO Define operations here
+	
 	functions
-	-- TODO Define functiones here
+		public validateCredentials: () -> bool
+		validateCredentials() ==
+			true; -- TODO
+		
 	traces
 	-- TODO Define Combinatorial Test Traces here
 end User
