@@ -1,0 +1,32 @@
+class GoogleScholar
+				types
+				-- TODO Define types here
+				values
+				-- TODO Define values here
+        instance variables
+                private contents : seq of int := [];
+                private capacity:  nat;
+                inv len contents <= capacity;
+        operations
+                public GoogleScholar: nat ==> GoogleScholar
+                GoogleScholar(c) == (capacity := c; return self)
+                post contents = [] and capacity = c;
+                public clear: () ==> ()
+                clear() == contents := [];
+                public push: int ==> ()
+                push(x) == contents := [x] ^ contents
+                pre len contents < capacity
+                post contents = [x] ^ contents~;
+                public pop: () ==> ()
+                pop() == contents := tl contents
+                pre contents <> []
+                post contents = tl contents~;
+                public top: () ==> int
+                top() == return hd contents
+                pre contents <> []
+                post RESULT = hd contents;
+        functions
+				-- TODO Define functiones here
+				traces
+				-- TODO Define Combinatorial Test Traces here
+end GoogleScholar
