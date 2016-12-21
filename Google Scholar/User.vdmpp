@@ -2,7 +2,6 @@ class User
 	types
 	
 	values
-	-- TODO Define values here
 	
 	instance variables
 		static public credentials: map Utils`String to Utils`String := {|->};
@@ -10,13 +9,12 @@ class User
 		private password: Utils`String := [];
 		
 	operations
-	-- TODO Define operations here
+		public validateCredentials: Utils`String * Utils`String ==> bool
+		validateCredentials(email, password) == 
+			return User`credentials(email) = password;
 	
 	functions
-		public validateCredentials: Utils`String * Utils`String -> bool
-		validateCredentials(email, password) ==
-			User`credentials(email) = password;
-		
+	
 	traces
-	-- TODO Define Combinatorial Test Traces here
+	
 end User
