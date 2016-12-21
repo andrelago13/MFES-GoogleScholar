@@ -8,7 +8,10 @@ class Paper
 		publicationDate: Date := new Date(2016,2,2);
 		DOI: Utils`String := [];
 		authors: seq of Person := [];
+		cites: seq of Paper := [];
+		
 		inv len authors > 0;
+		
 	operations
 		public Paper: Utils`String * Date * Utils`String * Person ==> Paper
 		Paper(ab, pubDate, doi, author) == 
@@ -18,7 +21,10 @@ class Paper
 		public Paper: Utils`String * Date * Utils`String * seq of Person ==> Paper
 		Paper(ab, pubDate, doi, authrs) == 
 		(abstract := ab; publicationDate := pubDate;
-			DOI := doi; authors := authrs; return self)
+			DOI := doi; authors := authrs; return self);
+			
+		public addCitation(p: Paper) == cites := cites ^ [p]
+		post cites = cites~ ^ [p];
 		
 	functions
 	-- TODO Define functiones here
