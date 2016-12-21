@@ -5,10 +5,21 @@ class Paper
 	-- TODO Define values here
 	instance variables
 		abstract: Utils`String := [];
-		publicationDate: int := 0;
+		publicationDate: Date := new Date(2016,2,2);
 		DOI: Utils`String := [];
+		authors: seq of Person := [];
+		inv len authors > 0;
 	operations
-	-- TODO Define operations here
+		public Paper: Utils`String * Date * Utils`String * Person ==> Paper
+		Paper(ab, pubDate, doi, author) == 
+		(abstract := ab; publicationDate := pubDate;
+			DOI := doi; authors := [author]; return self);
+			
+		public Paper: Utils`String * Date * Utils`String * seq of Person ==> Paper
+		Paper(ab, pubDate, doi, authrs) == 
+		(abstract := ab; publicationDate := pubDate;
+			DOI := doi; authors := authrs; return self)
+		
 	functions
 	-- TODO Define functiones here
 	traces
