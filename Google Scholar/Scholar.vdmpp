@@ -1,0 +1,33 @@
+class Scholar
+	types
+	
+	values
+	
+	instance variables
+		public users: set of User := {};
+		
+	operations
+		public getUserByEmail: Utils`String ==> [User]
+		getUserByEmail(e) == (
+			for all u in set users do
+				if (u.getEmail() = e) then
+					return u;
+			return nil;
+		);
+		
+		public login: Utils`String * Utils`String ==> [User]
+		login(e, p) == (
+			dcl u: [User] := getUserByEmail(e);
+			if u = nil then
+				return nil
+			else if u.isValidPassword(p) then
+				return u
+			else
+				return nil;
+		);
+	
+	functions
+	
+	traces
+	
+end Scholar

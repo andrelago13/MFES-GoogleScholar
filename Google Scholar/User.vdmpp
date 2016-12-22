@@ -4,33 +4,31 @@ class User
 	values
 	
 	instance variables
-		static public credentials: map Utils`String to Utils`String := {|->};
-		private email: Utils`String := [];
-		private password: Utils`String := [];
+		public email: Utils`String := [];
+		public password: Utils`String := [];
 		
 	operations	
-		private User: Utils`String * Utils`String  ==> User
+		public User: Utils`String * Utils`String  ==> User
 		User(e, p) == (
 			email := e;
 			password := p;
 			return self;
 		);
-	
-		static private checkEmail: Utils`String ==> bool
-		checkEmail(email) ==
-			return email in set dom credentials;
-	
-		static private checkPassword: Utils`String * Utils`String ==> bool
-		checkPassword(email, password) == (
-			return User`credentials(email) = password;
-		)
-		pre email in set dom credentials;
 		
-		static public validateCredentials: Utils`String * Utils`String ==> bool
-		validateCredentials(email, password) ==
-			return checkEmail(email) and checkPassword(email, password);
+		public getEmail: () ==> Utils`String
+		getEmail() ==
+			return email;
+			
+		public isValidPassword: Utils`String ==> bool
+		isValidPassword(p) == (
+			return isMatchingPassword(p, password);
+		)
 	
 	functions
+		static public isMatchingPassword: Utils`String * Utils`String -> bool
+		isMatchingPassword(p1, p2) == (
+			p1 = p2
+		);
 	
 	traces
 	
