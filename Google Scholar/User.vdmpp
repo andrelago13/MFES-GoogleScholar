@@ -8,11 +8,27 @@ class User
 		private email: Utils`String := [];
 		private password: Utils`String := [];
 		
-	operations
-		public validateCredentials: Utils`String * Utils`String ==> bool
-		validateCredentials(email, password) == 
-			(return User`credentials(email) = password;)
-		pre email in set dom credentials
+	operations	
+		private User: Utils`String * Utils`String  ==> User
+		User(e, p) == (
+			email := e;
+			password := p;
+			return self;
+		);
+	
+		static private checkEmail: Utils`String ==> bool
+		checkEmail(email) ==
+			return email in set dom credentials;
+	
+		static private checkPassword: Utils`String * Utils`String ==> bool
+		checkPassword(email, password) == (
+			return User`credentials(email) = password;
+		)
+		pre email in set dom credentials;
+		
+		static public validateCredentials: Utils`String * Utils`String ==> bool
+		validateCredentials(email, password) ==
+			return checkEmail(email) and checkPassword(email, password);
 	
 	functions
 	
