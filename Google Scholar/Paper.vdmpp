@@ -51,10 +51,10 @@ class Paper
 		post relatedTo = relatedTo~;
 			
 		public addCitation(p: Paper) == if self <> p then cites := cites union {p}
-		post cites = cites~ union {p};
+		post cites = cites~ union {p} or cites = cites~;
 			
 		public addRelatedPaper(p: Paper) == if self <> p then relatedTo := relatedTo union {p}
-		post relatedTo = relatedTo~ union {p};
+		post relatedTo = relatedTo~ union {p} or relatedTo = relatedTo~;
 		
 		static public papersFromAuthor: set of Paper * Person ==> set of Paper
 		papersFromAuthor(papers, author) == (

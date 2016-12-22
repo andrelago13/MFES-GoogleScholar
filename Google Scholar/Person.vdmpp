@@ -5,8 +5,22 @@ class Person
 	-- TODO Define values here
 	instance variables
 		name: Utils`String := [];
+		
 	operations
-	-- TODO Define operations here
+		public getName: () ==> Utils`String
+		getName() == (
+			return name
+		)
+		post name = name~;
+		
+		public static getPersonByName: set of Person * Utils`String ==> [Person]
+		getPersonByName(people, person_name) == (
+			for all p in set people do
+				if (p.getName() = person_name) then
+					return p;
+			return nil;
+		);
+		
 	functions
 	-- TODO Define functiones here
 	traces

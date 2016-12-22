@@ -5,6 +5,8 @@ class Scholar
 	
 	instance variables
 		public users: set of User := {};
+		public papers: set of Paper := {};
+		public people: set of Person := {};
 		
 	operations
 		public getUserByEmail: Utils`String ==> [User]
