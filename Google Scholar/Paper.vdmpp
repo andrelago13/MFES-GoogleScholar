@@ -64,6 +64,7 @@ class Paper
 					res := res union {p};
 			return res
 		)
+		post forall p in set RESULT & author in set p.authors;
 		
 	functions
 	-- TODO Define functiones here
