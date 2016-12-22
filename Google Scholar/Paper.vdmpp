@@ -4,27 +4,56 @@ class Paper
 	values
 	-- TODO Define values here
 	instance variables
-		abstract: Utils`String := [];
-		publicationDate: Date := new Date(2016,2,2);
-		DOI: Utils`String := [];
-		authors: seq of Person := [];
-		cites: seq of Paper := [];
+		public abstract: Utils`String := [];
+		public publicationDate: Date := new Date(2016,2,2);
+		public DOI: Utils`String := [];
+		authors: set of Person := {};
+		cites: set of Paper := {};
 		
-		inv len authors > 0;
+		inv card authors > 0;
 		
 	operations
 		public Paper: Utils`String * Date * Utils`String * Person ==> Paper
-		Paper(ab, pubDate, doi, author) == 
-		(abstract := ab; publicationDate := pubDate;
-			DOI := doi; authors := [author]; return self);
+		Paper(ab, pubDate, doi, author) == (
+			abstract := ab;
+			publicationDate := pubDate;
+			DOI := doi;
+			authors := {author};
+			return self
+		);
 			
-		public Paper: Utils`String * Date * Utils`String * seq of Person ==> Paper
-		Paper(ab, pubDate, doi, authrs) == 
-		(abstract := ab; publicationDate := pubDate;
-			DOI := doi; authors := authrs; return self);
+		public Paper: Utils`String * Date * Utils`String * set of Person ==> Paper
+		Paper(ab, pubDate, doi, authrs) == (
+			abstract := ab;
+			publicationDate := pubDate;
+			DOI := doi;
+			authors := authrs;
+			return self
+		);
 			
-		public addCitation(p: Paper) == cites := cites ^ [p]
-		post cites = cites~ ^ [p];
+		public getAuthors: () ==> set of Person
+		getAuthors() == (
+			return authors;
+		)
+		post authors = authors~;
+			
+		public getCitations: () ==> set of Paper
+		getCitations() == (
+			return cites;
+		)
+		post cites = cites~;
+			
+		public addCitation(p: Paper) == cites := cites union {p}
+		post cites = cites~ union {p};
+		
+		static public papersFromAuthor: set of Paper * Person ==> set of Paper
+		papersFromAuthor(papers, author) == (
+			dcl res : set of Paper := {};
+			for all p in set papers do
+				if(author in set p.getAuthors()) then
+					res := res union {p};
+			return res
+		)
 		
 	functions
 	-- TODO Define functiones here
