@@ -10,7 +10,7 @@ class Paper
 		authors: set of Person := {};
 		cites: set of Paper := {};
 		
-		inv card authors > 0;
+		inv card authors > 0; -- pelo menos um autor
 		
 	operations
 		public Paper: Utils`String * Date * Utils`String * Person ==> Paper
@@ -43,7 +43,7 @@ class Paper
 		)
 		post cites = cites~;
 			
-		public addCitation(p: Paper) == cites := cites union {p}
+		public addCitation(p: Paper) == if self <> p then cites := cites union {p}
 		post cites = cites~ union {p};
 		
 		static public papersFromAuthor: set of Paper * Person ==> set of Paper
