@@ -15,11 +15,11 @@ class User
 			return self;
 		);
 		
-		public getEmail: () ==> Utils`String
+		public pure getEmail: () ==> Utils`String
 		getEmail() ==
 			return email;
 			
-		public isValidPassword: Utils`String ==> bool
+		public pure isValidPassword: Utils`String ==> bool
 		isValidPassword(p) == (
 			return isMatchingPassword(p, password);
 		)

@@ -24,7 +24,8 @@ class Scholar
 				return u
 			else
 				return nil;
-		);
+		)
+		post RESULT = nil or RESULT.getEmail() = e and RESULT.isValidPassword(p);
 	
 	functions
 	
