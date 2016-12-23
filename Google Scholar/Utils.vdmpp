@@ -6,6 +6,42 @@ class Utils
 	instance variables
 	-- TODO Define instance variables here
 	operations
+	
+		public static GetHIndex: seq of nat ==> nat
+		GetHIndex(vals) == (
+			dcl s : map nat to nat := {|->};
+			dcl vals_len : nat := len vals;
+			dcl min : nat := 0;
+			dcl temp : nat := 0;
+			dcl sum : nat := 0;
+			
+			-- initialize s to zero
+			for i = 0 to vals_len do
+				s := s munion {i |-> 0};
+				
+			for i = 0 to (vals_len - 1) do (
+				min := Min(vals_len, vals(i));
+				temp := s(min);
+				temp := temp + 1;
+				s := s ++ { min |-> temp };
+			);
+			
+			for i = vals_len to 0 do (
+				sum := sum + s(i);
+				if( sum >= i) then
+					return sum;
+			);
+			
+			return 0;
+		);
+		
+		public static Min: nat * nat ==> nat
+		Min(n1, n2) == (
+			if (n1 < n2) then
+				return n1;
+			return n2;
+		);
+		
 	-- TODO Define operations here
 	functions
 	-- TODO Define functiones here
