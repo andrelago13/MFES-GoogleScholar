@@ -42,9 +42,28 @@ class Utils
 			return n2;
 		);
 		
-	-- TODO Define operations here
 	functions
-	-- TODO Define functiones here
+	
+	-- from MFES slides
+	public Mergesort: seq of nat -> seq of nat
+	Mergesort(s) == (
+		cases s:
+			[] -> [],
+			[x] -> [x],
+			s1 ^ s2 -> Merge(Mergesort(s1), Mergesort(s2))
+		end
+	);
+	
+	-- from MFES slides
+	Merge(s1, s2: seq of nat) res : seq of nat == (
+	cases true:
+		(s1 = []) -> s2,
+		(s2 = []) -> s1,
+		(hd s1 < hd s2) -> [hd s1] ^ Merge(tl s1, s2),
+		others -> [hd s2] ^ Merge(s1, tl s2)
+		end
+	);
+
 	traces
 	-- TODO Define Combinatorial Test Traces here
 end Utils

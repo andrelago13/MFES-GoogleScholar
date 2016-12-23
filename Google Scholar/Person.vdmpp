@@ -21,6 +21,19 @@ class Person
 			return nil;
 		);
 		
+		public getHIndex: set of Paper ==> nat
+		getHIndex(papers) == (
+			dcl own_papers : set of Paper := Paper`papersFromAuthor(papers, self);
+			dcl scores : seq of nat := [];
+			
+			for all p in set own_papers do (
+				scores := scores ^ [p.getNumCitedBy(papers)];
+			);
+			scores := Utils`Mergesort(scores);
+			
+			return Utils`GetHIndex(scores);
+		);
+		
 	functions
 	-- TODO Define functiones here
 	traces
