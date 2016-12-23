@@ -30,6 +30,7 @@ class Scholar
 			else
 				return nil;
 		)
+
 		pre not isLoggedIn()
 		post (RESULT = nil and not isLoggedIn())
 			or (RESULT.getEmail() = e and RESULT.isValidPassword(p) and currentUser = RESULT);
@@ -44,10 +45,16 @@ class Scholar
 		public pure isLoggedIn: () ==> bool
 		isLoggedIn() == (
 			return currentUser <> nil;
-		)
+		);
+		
+		public getPapersFromAuthorName: Utils`String ==> set of Paper
+		getPapersFromAuthorName(name) == (
+			dcl author : Person := Person`getPersonByName(people, name);
+			return Paper`papersFromAuthor(papers, author);
+		);
 	
 	functions
-	
+		
 	traces
 	
 end Scholar

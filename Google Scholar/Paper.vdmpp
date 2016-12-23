@@ -32,19 +32,19 @@ class Paper
 			return self
 		);
 			
-		public getAuthors: () ==> set of Person
+		public pure getAuthors: () ==> set of Person
 		getAuthors() == (
 			return authors;
 		)
 		post authors = authors~;
 			
-		public getCitations: () ==> set of Paper
+		public pure getCitations: () ==> set of Paper
 		getCitations() == (
 			return cites;
 		)
 		post cites = cites~;
 			
-		public getRelatedPapers: () ==> set of Paper
+		public pure getRelatedPapers: () ==> set of Paper
 		getRelatedPapers() == (
 			return relatedTo;
 		)
