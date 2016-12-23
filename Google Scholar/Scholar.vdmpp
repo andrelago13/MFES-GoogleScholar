@@ -7,6 +7,7 @@ class Scholar
 		public users: set of User := {};
 		public papers: set of Paper := {};
 		public people: set of Person := {};
+		public currentUser: [User] := nil;
 		
 	operations
 		public getUserByEmail: Utils`String ==> [User]
@@ -22,12 +23,28 @@ class Scholar
 			dcl u: [User] := getUserByEmail(e);
 			if u = nil then
 				return nil
-			else if u.isValidPassword(p) then
+			else if u.isValidPassword(p) then (
+				currentUser := u;
 				return u
+			)
 			else
 				return nil;
 		)
-		post (RESULT = nil) or (RESULT.getEmail() = e and RESULT.isValidPassword(p));
+		pre not isLoggedIn()
+		post (RESULT = nil and not isLoggedIn())
+			or (RESULT.getEmail() = e and RESULT.isValidPassword(p) and currentUser = RESULT);
+			
+		public logout: () ==> ()
+		logout() == (
+			currentUser := nil;
+		)
+		pre isLoggedIn()
+		post not isLoggedIn();
+		
+		public pure isLoggedIn: () ==> bool
+		isLoggedIn() == (
+			return currentUser <> nil;
+		)
 	
 	functions
 	
