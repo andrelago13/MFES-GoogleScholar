@@ -10,7 +10,7 @@ class Scholar
 		public currentUser: [User] := nil;
 		
 	operations
-		public getUserByEmail: Utils`String ==> [User]
+		public pure getUserByEmail: Utils`String ==> [User]
 		getUserByEmail(e) == (
 			for all u in set users do
 				if (u.getEmail() = e) then
@@ -18,22 +18,19 @@ class Scholar
 			return nil;
 		);
 		
-		public login: Utils`String * Utils`String ==> [User]
+		public login: Utils`String * Utils`String ==> ()
 		login(e, p) == (
 			dcl u: [User] := getUserByEmail(e);
-			if u = nil then
-				return nil
-			else if u.isValidPassword(p) then (
+			if u <> nil and u.isValidPassword(p) then (
 				currentUser := u;
-				return u
 			)
-			else
-				return nil;
 		)
-
 		pre not isLoggedIn()
-		post (RESULT = nil and not isLoggedIn())
-			or (RESULT.getEmail() = e and RESULT.isValidPassword(p) and currentUser = RESULT);
+		post let u = getUserByEmail(e) in (
+				(not isLoggedIn() and u = nil)
+				or (not isLoggedIn() and not u.isValidPassword(p))
+				or (currentUser = u and u.getEmail() = e and u.isValidPassword(p))
+			);
 			
 		public logout: () ==> ()
 		logout() == (
@@ -46,6 +43,13 @@ class Scholar
 		isLoggedIn() == (
 			return currentUser <> nil;
 		);
+		
+		public register: Utils`String * Utils`String ==> ()
+		register(e, p) == (
+			users := users union {new User(e, p)};
+		)
+		pre getUserByEmail(e) = nil
+		post getUserByEmail(e).isValidPassword(p);
 		
 		public getPapersFromAuthorName: Utils`String ==> set of Paper
 		getPapersFromAuthorName(name) == (

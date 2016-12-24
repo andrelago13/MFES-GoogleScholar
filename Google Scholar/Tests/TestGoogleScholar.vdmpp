@@ -1,0 +1,37 @@
+class TestGoogleScholar is subclass of MyTestCase
+	types
+	-- TODO Define types here
+	values
+	-- TODO Define values here
+	instance variables
+	-- TODO Define instance variables here
+	operations
+		public generalScn: () ==> Scholar
+			generalScn() == (
+				dcl scholar: Scholar := new Scholar();
+				scholar.register("user1@gmail.com", "pass1");
+				scholar.register("user2@gmail.com", "pass2");
+				scholar.register("user3@gmail.com", "pass3");
+				return scholar;
+			);
+		
+		/** TEST CASES WITH VALID INPUTS **/
+		public testLoginLogout: () ==> ()
+		testLoginLogout() == (
+			let s = generalScn() in (
+				s.login("inexistentuser@gmail.com", "pass1");
+				assertTrue(not s.isLoggedIn());
+				
+				s.login("user1@gmail.com", "pass1");
+				assertTrue(s.isLoggedIn());
+				
+				s.logout();
+				assertTrue(not s.isLoggedIn());
+			)
+		);
+		
+	functions
+		
+	traces
+	-- TODO Define Combinatorial Test Traces here
+end TestGoogleScholar
