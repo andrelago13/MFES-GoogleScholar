@@ -16,6 +16,25 @@ class TestGoogleScholar is subclass of MyTestCase
 			);
 		
 		/** TEST CASES WITH VALID INPUTS **/
+		
+		-- Entry point that runs all tests with valid inputs
+		public testAll: () ==> ()
+		testAll() == (
+			testRegister();
+			testLoginLogout();
+		);
+		
+		public testRegister: () ==> ()
+		testRegister() == (
+			let s = generalScn() in (
+				dcl e: Utils`String := "new@gmail.com";
+				dcl p: Utils`String := "newpass";
+				assertEqual(s.getUserByEmail(e), nil);
+				s.register(e, p);
+				assertTrue(s.getUserByEmail(e) <> nil and s.getUserByEmail(e).isValidPassword(p));
+			);
+		);
+		
 		public testLoginLogout: () ==> ()
 		testLoginLogout() == (
 			let s = generalScn() in (
