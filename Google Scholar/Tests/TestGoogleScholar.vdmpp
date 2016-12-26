@@ -20,8 +20,14 @@ class TestGoogleScholar is subclass of MyTestCase
 		-- Entry point that runs all tests with valid inputs
 		public testAll: () ==> ()
 		testAll() == (
+			IO`println("Starting 'Scholar' tests.");
+			IO`println("	testRegister() starting.");
 			testRegister();
+			IO`println("	testRegister() ended.");
+			IO`println("	testLoginLogout() starting.");
 			testLoginLogout();
+			IO`println("	testLoginLogout() ended.");
+			IO`println("'Scholar' tests done.");
 		);
 		
 		public testRegister: () ==> ()

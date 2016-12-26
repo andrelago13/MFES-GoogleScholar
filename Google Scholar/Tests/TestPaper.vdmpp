@@ -17,7 +17,11 @@ class TestPaper is subclass of MyTestCase
 		-- Entry point that runs all tests with valid inputs
 		public testAll: () ==> ()
 		testAll() == (
+			IO`println("Starting 'Paper' tests.");
+			IO`println("	testRegister() starting.");
 			testRegister();
+			IO`println("	testRegister() ended.");
+			IO`println("'Paper' tests done.");
 		);
 		
 		public testRegister: () ==> ()
