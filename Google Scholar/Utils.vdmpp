@@ -57,7 +57,7 @@ class Utils
 	);
 	
 	-- from MFES slides
-	Merge(s1, s2: seq of nat) res : seq of nat == (
+	public Merge(s1, s2: seq of nat) res : seq of nat == (
 	cases true:
 		(s1 = []) -> s2,
 		(s2 = []) -> s1,
