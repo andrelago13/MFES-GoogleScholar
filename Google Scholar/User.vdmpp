@@ -6,6 +6,7 @@ class User
 	instance variables
 		public email: Utils`String := [];
 		public password: Utils`String := [];
+		public papers: set of Paper := {};
 		
 	operations	
 		public User: Utils`String * Utils`String  ==> User
@@ -22,7 +23,18 @@ class User
 		public pure isValidPassword: Utils`String ==> bool
 		isValidPassword(p) == (
 			return isMatchingPassword(p, password);
+		);
+		
+		public addPaper: Paper ==> ()
+		addPaper(paper) == (
+			papers := papers union {paper};
 		)
+		pre paper not in set papers
+		post paper in set papers;
+		
+		public pure getPapers: () ==> set of Paper
+		getPapers() ==
+			return papers;
 	
 	functions
 		static public isMatchingPassword: Utils`String * Utils`String -> bool

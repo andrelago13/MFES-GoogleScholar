@@ -7,6 +7,12 @@ class Person
 		name: Utils`String := [];
 		
 	operations
+		public Person: Utils`String ==> Person
+		Person(n) == (
+			name := n;
+			return self;
+		);
+	
 		public getName: () ==> Utils`String
 		getName() == (
 			return name

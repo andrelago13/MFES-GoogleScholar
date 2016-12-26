@@ -4,10 +4,10 @@ class Scholar
 	values
 	
 	instance variables
-		public users: set of User := {};
-		public papers: set of Paper := {};
-		public people: set of Person := {};
-		public currentUser: [User] := nil;
+		private users: set of User := {};
+		private papers: set of Paper := {};
+		private people: set of Person := {};
+		private currentUser: [User] := nil;
 		
 	operations
 		public pure getUserByEmail: Utils`String ==> [User]
@@ -44,6 +44,11 @@ class Scholar
 			return currentUser <> nil;
 		);
 		
+		public pure getCurrentUser: () ==> [User]
+		getCurrentUser() == (
+			return currentUser;
+		);
+		
 		public register: Utils`String * Utils`String ==> ()
 		register(e, p) == (
 			users := users union {new User(e, p)};
@@ -56,6 +61,14 @@ class Scholar
 			dcl author : Person := Person`getPersonByName(people, name);
 			return Paper`papersFromAuthor(papers, author);
 		);
+		
+		public addPaper: Paper ==> ()
+		addPaper(paper) == (
+			papers := papers union {paper};
+			currentUser.addPaper(paper);
+		)
+		pre isLoggedIn() and paper not in set papers
+		post paper in set papers;
 	
 	functions
 		

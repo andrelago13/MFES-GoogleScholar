@@ -7,13 +7,21 @@ class TestGoogleScholar is subclass of MyTestCase
 	-- TODO Define instance variables here
 	operations
 		public generalScn: () ==> Scholar
-			generalScn() == (
-				dcl scholar: Scholar := new Scholar();
-				scholar.register("user1@gmail.com", "pass1");
-				scholar.register("user2@gmail.com", "pass2");
-				scholar.register("user3@gmail.com", "pass3");
-				return scholar;
+		generalScn() == (
+			dcl scholar: Scholar := new Scholar();
+			scholar.register("user1@gmail.com", "pass1");
+			scholar.register("user2@gmail.com", "pass2");
+			scholar.register("user3@gmail.com", "pass3");
+			return scholar;
+		);
+			
+		public loggedInScn: () ==> Scholar
+		loggedInScn() == (
+			let s = generalScn() in (
+				s.login("user1@gmail.com", "pass1");
+				return s;
 			);
+		);
 		
 		/** TEST CASES WITH VALID INPUTS **/
 		
@@ -48,6 +56,25 @@ class TestGoogleScholar is subclass of MyTestCase
 				assertTrue(not s.isLoggedIn());
 			)
 		);
+		
+		public testAddPaper: () ==> ()
+		testAddPaper() == (
+			let s = loggedInScn() in (
+				dcl u: User := s.getCurrentUser();
+				dcl p: Paper := new Paper(
+					"A novel approach using Alloy in domain-specific language engineering",
+					new Date(2015, 0, 0),
+					"10.5220/0005228101570164",
+					{new Person("Moreira"), new Person("RMLM"), new Person("Paiva"), new Person("ACR")});
+				s.addPaper(p);
+				assertTrue(p in set s.getPapersFromAuthorName("Moreira"));
+				assertTrue(p in set s.getPapersFromAuthorName("RMLM"));
+				assertTrue(p in set s.getPapersFromAuthorName("Paiva"));
+				assertTrue(p in set s.getPapersFromAuthorName("ACR"));
+				assertTrue(p in set u.getPapers());
+			);
+		);
+				
 		
 	functions
 		
