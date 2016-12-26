@@ -5,7 +5,7 @@ class Paper
 	-- TODO Define values here
 	instance variables
 		public abstract: Utils`String := [];
-		public publicationDate: Date := new Date(2016,2,2);
+		public publicationDate: nat;
 		public DOI: Utils`String := [];
 		authors: set of Person := {};
 		cites: set of Paper := {};
@@ -14,7 +14,7 @@ class Paper
 		inv card authors > 0; -- pelo menos um autor
 		
 	operations
-		public Paper: Utils`String * Date * Utils`String * Person ==> Paper
+		public Paper: Utils`String * nat * Utils`String * Person ==> Paper
 		Paper(ab, pubDate, doi, author) == (
 			abstract := ab;
 			publicationDate := pubDate;
@@ -23,7 +23,7 @@ class Paper
 			return self
 		);
 			
-		public Paper: Utils`String * Date * Utils`String * set of Person ==> Paper
+		public Paper: Utils`String * nat * Utils`String * set of Person ==> Paper
 		Paper(ab, pubDate, doi, authrs) == (
 			abstract := ab;
 			publicationDate := pubDate;
