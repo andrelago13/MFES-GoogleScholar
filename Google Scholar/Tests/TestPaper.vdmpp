@@ -1,0 +1,32 @@
+class TestPaper is subclass of MyTestCase
+	types
+	-- TODO Define types here
+	values
+	-- TODO Define values here
+	instance variables
+	-- TODO Define instance variables here
+	operations
+		public generalScn: () ==> Scholar
+			generalScn() == (
+				dcl scholar: Scholar := new Scholar();
+				return scholar;
+			);
+		
+		/** TEST CASES WITH VALID INPUTS **/
+		
+		-- Entry point that runs all tests with valid inputs
+		public testAll: () ==> ()
+		testAll() == (
+			testRegister();
+		);
+		
+		public testRegister: () ==> ()
+		testRegister() == (
+			assertTrue(true);
+		);
+		
+	functions
+		
+	traces
+	-- TODO Define Combinatorial Test Traces here
+end TestPaper
