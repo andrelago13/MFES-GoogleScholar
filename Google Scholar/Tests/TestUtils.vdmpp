@@ -28,8 +28,8 @@ class TestUtils is subclass of MyTestCase
 		testHIndex() == (
 			dcl a1: seq of nat := [10,8,5,4,3];
 			dcl a2: seq of nat := [25,8,5,3,3];
-			assertEqual(Utils`GetHIndex(a1), 4);
-			assertEqual(Utils`GetHIndex(a2), 3);
+			assertEqual(4, Utils`GetHIndex(a1));
+			assertEqual(3, Utils`GetHIndex(a2));
 		);
 		
 	functions

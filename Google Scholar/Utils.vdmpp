@@ -16,20 +16,22 @@ class Utils
 			dcl sum : nat := 0;
 			
 			-- initialize s to zero
-			for i = 0 to vals_len do
+			for i = 1 to vals_len + 1 do
 				s := s munion {i |-> 0};
 				
-			for i = 0 to (vals_len - 1) do (
+			for i = 1 to vals_len do (
 				min := Min(vals_len, vals(i));
-				temp := s(min);
+				temp := s(min + 1);
 				temp := temp + 1;
-				s := s ++ { min |-> temp };
+				s := s ++ { (min + 1) |-> temp };
 			);
 			
-			for i = vals_len to 0 do (
-				sum := sum + s(i);
-				if( sum >= i) then
-					return sum;
+			vals_len := card dom s;
+			for i = 1 to vals_len do (
+				temp := vals_len - i + 1;
+				sum := sum + s(temp);
+				if( sum >= (temp - 1)) then
+					return temp - 1;
 			);
 			
 			return 0;
