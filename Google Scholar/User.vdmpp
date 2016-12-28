@@ -25,12 +25,24 @@ class User
 			return isMatchingPassword(p, password);
 		);
 		
+		public changePassword: Utils`String ==> ()
+		changePassword(newPassword) == (
+			password := newPassword;
+		)post password~ <> password;
+		
 		public addPaper: Paper ==> ()
 		addPaper(paper) == (
 			papers := papers union {paper};
 		)
 		pre paper not in set papers
 		post paper in set papers;
+		
+		public removePaper: Paper ==> ()
+		removePaper(paper) == (
+			papers := papers \ {paper};
+		)
+		pre paper in set papers
+		post papers = papers~ \ {paper}; 
 		
 		public pure getPapers: () ==> set of Paper
 		getPapers() ==

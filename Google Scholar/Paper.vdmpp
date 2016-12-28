@@ -7,14 +7,14 @@ class Paper
 		public abstract: Utils`String := [];
 		public publicationDate: nat;
 		public DOI: Utils`String := [];
-		authors: set of Person := {};
+		authors: set of Utils`String := {};
 		cites: set of Paper := {};
 		relatedTo: set of Paper := {};
 		
 		inv card authors > 0; -- pelo menos um autor
 		
 	operations
-		public Paper: Utils`String * nat * Utils`String * Person ==> Paper
+		public Paper: Utils`String * nat * Utils`String * Utils`String ==> Paper
 		Paper(ab, pubDate, doi, author) == (
 			abstract := ab;
 			publicationDate := pubDate;
@@ -23,7 +23,7 @@ class Paper
 			return self
 		);
 			
-		public Paper: Utils`String * nat * Utils`String * set of Person ==> Paper
+		public Paper: Utils`String * nat * Utils`String * set of Utils`String ==> Paper
 		Paper(ab, pubDate, doi, authrs) == (
 			abstract := ab;
 			publicationDate := pubDate;
@@ -32,7 +32,7 @@ class Paper
 			return self
 		);
 			
-		public pure getAuthors: () ==> set of Person
+		public pure getAuthors: () ==> set of Utils`String
 		getAuthors() == (
 			return authors;
 		);
@@ -63,7 +63,7 @@ class Paper
 			return res;
 		);
 		
-		static public papersFromAuthor: set of Paper * Person ==> set of Paper
+		static public papersFromAuthor: set of Paper * Utils`String ==> set of Paper
 		papersFromAuthor(papers, author) == (
 			dcl res : set of Paper := {};
 			for all p in set papers do

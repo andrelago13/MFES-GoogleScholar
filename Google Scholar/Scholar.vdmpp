@@ -6,7 +6,7 @@ class Scholar
 	instance variables
 		private users: set of User := {};
 		private papers: set of Paper := {};
-		private people: set of Person := {};
+		private people: set of Utils`String := {};
 		private currentUser: [User] := nil;
 		
 	operations
@@ -17,6 +17,7 @@ class Scholar
 					return u;
 			return nil;
 		);
+		
 		
 		public login: Utils`String * Utils`String ==> ()
 		login(e, p) == (
@@ -58,8 +59,11 @@ class Scholar
 		
 		public getPapersFromAuthorName: Utils`String ==> set of Paper
 		getPapersFromAuthorName(name) == (
-			dcl author : Person := Person`getPersonByName(people, name);
-			return Paper`papersFromAuthor(papers, author);
+			dcl res : set of Paper := {};
+			for all p in set papers do
+				if(name in set p.getAuthors()) then
+					res := res union {p};
+			return res
 		);
 		
 		public addPaper: Paper ==> ()
@@ -69,6 +73,14 @@ class Scholar
 		)
 		pre isLoggedIn() and paper not in set papers
 		post paper in set papers;
+		
+		public removePaper: Paper ==> ()
+		removePaper(paper) == (
+			papers := papers \ {paper};
+			currentUser.removePaper(paper);
+		)
+		pre isLoggedIn() and paper in set papers
+		post papers = papers~ \ {paper};
 	
 	functions
 		
