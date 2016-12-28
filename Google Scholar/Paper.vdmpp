@@ -54,7 +54,7 @@ class Paper
 		post relatedTo = relatedTo~ union {p} or relatedTo = relatedTo~;
 		
 		-- number of papers from "papers" that cite this paper
-		public getNumCitedBy: set of Paper ==> nat
+		public pure getNumCitedBy: set of Paper ==> nat
 		getNumCitedBy(papers) == (
 			dcl res :  nat := 0;
 			for all p in set papers do

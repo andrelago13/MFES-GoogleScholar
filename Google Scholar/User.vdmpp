@@ -48,7 +48,7 @@ class User
 		getPapers() ==
 			return papers;
 			
-		public getHIndex: set of Paper ==> nat
+		public pure getHIndex: set of Paper ==> nat
 		getHIndex(allPapers) == (
 			dcl scores : seq of nat := [];
 			
@@ -58,6 +58,19 @@ class User
 			scores := Utils`Mergesort(scores);
 			
 			return Utils`GetHIndex(scores);
+		);
+			
+		public pure getI10Index: set of Paper ==> nat
+		getI10Index(allPapers) == (
+			dcl result : nat := 0;
+			
+			for all p in set papers do (
+				if (p.getNumCitedBy(allPapers) >= 10) then (
+					result := result + 1;
+				)
+			);
+			
+			return result;
 		);
 	
 	functions

@@ -7,7 +7,7 @@ class Utils
 	-- TODO Define instance variables here
 	operations
 	
-		public static GetHIndex: seq of nat ==> nat
+		public static pure GetHIndex: seq of nat ==> nat
 		GetHIndex(vals) == (
 			dcl s : map nat to nat := {|->};
 			dcl vals_len : nat := len vals;
@@ -37,7 +37,7 @@ class Utils
 			return 0;
 		);
 		
-		public static Min: nat * nat ==> nat
+		public static pure Min: nat * nat ==> nat
 		Min(n1, n2) == (
 			if (n1 < n2) then
 				return n1;
