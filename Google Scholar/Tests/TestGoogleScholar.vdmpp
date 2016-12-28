@@ -36,6 +36,12 @@ class TestGoogleScholar is subclass of MyTestCase
 			testLoginLogout();
 			IO`println("	testLoginLogout() ended.");
 			IO`println("'Scholar' tests done.");
+			IO`println("	testAddPaper() starting.");
+			testAddPaper();
+			IO`println("	testAddPaper() ended");
+			IO`println("	testRemovePaper() starting.");
+			testRemovePaper();
+			IO`println("	testRemovePaper() ended");
 		);
 		
 		public testRegister: () ==> ()
@@ -71,13 +77,32 @@ class TestGoogleScholar is subclass of MyTestCase
 					"A novel approach using Alloy in domain-specific language engineering",
 					2015,
 					"10.5220/0005228101570164",
-					{new Person("Moreira"), new Person("RMLM"), new Person("Paiva"), new Person("ACR")});
+					{"Moreira", "RMLM", "Paiva", "ACR"});
 				s.addPaper(p);
 				assertTrue(p in set s.getPapersFromAuthorName("Moreira"));
 				assertTrue(p in set s.getPapersFromAuthorName("RMLM"));
 				assertTrue(p in set s.getPapersFromAuthorName("Paiva"));
 				assertTrue(p in set s.getPapersFromAuthorName("ACR"));
 				assertTrue(p in set u.getPapers());
+			);
+		);
+		
+		public testRemovePaper: () ==> ()
+		testRemovePaper() == (
+			let s = loggedInScn() in(
+				dcl u: User := s.getCurrentUser();
+				dcl p: Paper := new Paper(
+					"A novel approach using Alloy in domain-specific language engineering",
+					2015,
+					"10.5220/0005228101570164",
+					{"Moreira", "RMLM", "Paiva", "ACR"});
+				s.addPaper(p);
+				s.removePaper(p);
+				assertTrue(p not in set s.getPapersFromAuthorName("Moreira"));
+				assertTrue(p not in set s.getPapersFromAuthorName("RMLM"));
+				assertTrue(p not in set s.getPapersFromAuthorName("Paiva"));
+				assertTrue(p not in set s.getPapersFromAuthorName("ACR"));
+				assertTrue(p not in set u.getPapers());
 			);
 		);
 				
