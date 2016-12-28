@@ -35,6 +35,18 @@ class User
 		public pure getPapers: () ==> set of Paper
 		getPapers() ==
 			return papers;
+			
+		public getHIndex: set of Paper ==> nat
+		getHIndex(allPapers) == (
+			dcl scores : seq of nat := [];
+			
+			for all p in set papers do (
+				scores := scores ^ [p.getNumCitedBy(allPapers)];
+			);
+			scores := Utils`Mergesort(scores);
+			
+			return Utils`GetHIndex(scores);
+		);
 	
 	functions
 		static public isMatchingPassword: Utils`String * Utils`String -> bool
