@@ -35,20 +35,17 @@ class Paper
 		public pure getAuthors: () ==> set of Person
 		getAuthors() == (
 			return authors;
-		)
-		post authors = authors~;
+		);
 			
 		public pure getCitations: () ==> set of Paper
 		getCitations() == (
 			return cites;
-		)
-		post cites = cites~;
+		);
 			
 		public pure getRelatedPapers: () ==> set of Paper
 		getRelatedPapers() == (
 			return relatedTo;
-		)
-		post relatedTo = relatedTo~;
+		);
 			
 		public addCitation(p: Paper) == if self <> p then cites := cites union {p}
 		post cites = cites~ union {p} or cites = cites~;
