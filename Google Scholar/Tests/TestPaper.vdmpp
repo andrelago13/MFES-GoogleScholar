@@ -1,0 +1,106 @@
+class TestPaper is subclass of MyTestCase
+	types
+	-- TODO Define types here
+	values
+	-- TODO Define values here
+	instance variables
+	-- TODO Define instance variables here
+	operations
+		public generalScn: () ==> Scholar
+			generalScn() == (
+				dcl scholar: Scholar := new Scholar();
+				return scholar;
+			);
+		
+		/** TEST CASES WITH VALID INPUTS **/
+		
+		-- Entry point that runs all tests with valid inputs
+		public testAll: () ==> ()
+		testAll() == (
+			IO`println("Starting 'Paper' tests.");
+			IO`println("	testGetNumCitedBy() starting.");
+			testGetNumCitedBy();
+			IO`println("	testGetNumCitedBy() ended.");
+			IO`println("	testPapersFromAuthor() starting.");
+			testPapersFromAuthor();
+			IO`println("	testPapersFromAuthor() ended.");
+			IO`println("'Paper' tests done.");
+		);
+		
+		public testGetNumCitedBy: () ==> ()
+		testGetNumCitedBy() == (
+			dcl paper: Paper := new Paper("", 0, "", new Person());
+			
+			dcl p1: Paper := new Paper("", 0, "", new Person());
+			dcl p2: Paper := new Paper("", 0, "", new Person());
+			dcl p3: Paper := new Paper("", 0, "", new Person());
+			dcl p4: Paper := new Paper("", 0, "", new Person());
+			dcl p5: Paper := new Paper("", 0, "", new Person());
+			dcl p6: Paper := new Paper("", 0, "", new Person());
+			dcl p7: Paper := new Paper("", 0, "", new Person());
+			dcl p8: Paper := new Paper("", 0, "", new Person());
+			dcl p9: Paper := new Paper("", 0, "", new Person());
+			dcl p10: Paper := new Paper("", 0, "", new Person());
+			dcl p11: Paper := new Paper("", 0, "", new Person());
+			dcl p12: Paper := new Paper("", 0, "", new Person());
+			dcl papers: set of Paper := {
+				paper,
+				p1,
+				p2,
+				p3,
+				p4,
+				p5,
+				p6,
+				p7,
+				p8,
+				p9,
+				p10,
+				p11,
+				p12
+			};
+			p2.addCitation(paper);
+			p5.addCitation(paper);
+			p8.addCitation(paper);
+			p10.addCitation(paper);
+			p11.addCitation(paper);
+			assertEqual(5, paper.getNumCitedBy(papers));
+		);
+		
+		public testPapersFromAuthor: () ==> ()
+		testPapersFromAuthor() == (
+			dcl author: Person := new Person();
+			
+			dcl p1: Paper := new Paper("", 0, "", author);
+			dcl p2: Paper := new Paper("", 0, "", new Person());
+			dcl p3: Paper := new Paper("", 0, "", new Person());
+			dcl p4: Paper := new Paper("", 0, "", author);
+			dcl p5: Paper := new Paper("", 0, "", new Person());
+			dcl p6: Paper := new Paper("", 0, "", new Person());
+			dcl p7: Paper := new Paper("", 0, "", new Person());
+			dcl p8: Paper := new Paper("", 0, "", author);
+			dcl p9: Paper := new Paper("", 0, "", new Person());
+			dcl p10: Paper := new Paper("", 0, "", new Person());
+			dcl p11: Paper := new Paper("", 0, "", author);
+			dcl p12: Paper := new Paper("", 0, "", new Person());
+			dcl papers: set of Paper := {
+				p1,
+				p2,
+				p3,
+				p4,
+				p5,
+				p6,
+				p7,
+				p8,
+				p9,
+				p10,
+				p11,
+				p12
+			};
+			assertEqual({p1, p4, p8, p11}, Paper`papersFromAuthor(papers, author));
+		);
+		
+	functions
+		
+	traces
+	-- TODO Define Combinatorial Test Traces here
+end TestPaper
