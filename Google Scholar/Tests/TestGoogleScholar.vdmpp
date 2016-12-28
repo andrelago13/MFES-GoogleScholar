@@ -69,7 +69,7 @@ class TestGoogleScholar is subclass of MyTestCase
 				dcl u: User := s.getCurrentUser();
 				dcl p: Paper := new Paper(
 					"A novel approach using Alloy in domain-specific language engineering",
-					new Date(2015, 0, 0),
+					2015,
 					"10.5220/0005228101570164",
 					{new Person("Moreira"), new Person("RMLM"), new Person("Paiva"), new Person("ACR")});
 				s.addPaper(p);
