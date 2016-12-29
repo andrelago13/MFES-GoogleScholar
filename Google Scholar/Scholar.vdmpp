@@ -6,11 +6,11 @@ class Scholar
 	instance variables
 		private users: set of User := {};
 		private papers: set of Paper := {};
-		private people: set of Utils`String := {};
+		private people: set of ScholarUtils`String := {};
 		private currentUser: [User] := nil;
 		
 	operations
-		public pure getUserByEmail: Utils`String ==> [User]
+		public pure getUserByEmail: ScholarUtils`String ==> [User]
 		getUserByEmail(e) == (
 			for all u in set users do
 				if (u.getEmail() = e) then
@@ -19,7 +19,7 @@ class Scholar
 		);
 		
 		
-		public login: Utils`String * Utils`String ==> ()
+		public login: ScholarUtils`String * ScholarUtils`String ==> ()
 		login(e, p) == (
 			dcl u: [User] := getUserByEmail(e);
 			if u <> nil and u.isValidPassword(p) then (
@@ -50,14 +50,14 @@ class Scholar
 			return currentUser;
 		);
 		
-		public register: Utils`String * Utils`String ==> ()
+		public register: ScholarUtils`String * ScholarUtils`String ==> ()
 		register(e, p) == (
 			users := users union {new User(e, p)};
 		)
 		pre getUserByEmail(e) = nil
 		post getUserByEmail(e).isValidPassword(p);
 		
-		public getPapersFromAuthorName: Utils`String ==> set of Paper
+		public getPapersFromAuthorName: ScholarUtils`String ==> set of Paper
 		getPapersFromAuthorName(name) == (
 			dcl res : set of Paper := {};
 			for all p in set papers do

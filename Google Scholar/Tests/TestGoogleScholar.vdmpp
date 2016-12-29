@@ -47,8 +47,8 @@ class TestGoogleScholar is subclass of MyTestCase
 		public testRegister: () ==> ()
 		testRegister() == (
 			let s = generalScn() in (
-				dcl e: Utils`String := "new@gmail.com";
-				dcl p: Utils`String := "newpass";
+				dcl e: ScholarUtils`String := "new@gmail.com";
+				dcl p: ScholarUtils`String := "newpass";
 				assertEqual(s.getUserByEmail(e), nil);
 				s.register(e, p);
 				assertTrue(s.getUserByEmail(e) <> nil and s.getUserByEmail(e).isValidPassword(p));
