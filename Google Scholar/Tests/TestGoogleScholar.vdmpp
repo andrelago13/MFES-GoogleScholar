@@ -76,6 +76,7 @@ class TestGoogleScholar is subclass of MyTestCase
 				dcl p: Paper := new Paper(
 					"A novel approach using Alloy in domain-specific language engineering",
 					2015,
+					"Alloy in domain-specific language engineering",
 					"10.5220/0005228101570164",
 					{"Moreira", "RMLM", "Paiva", "ACR"});
 				s.addPaper(p);
@@ -84,6 +85,7 @@ class TestGoogleScholar is subclass of MyTestCase
 				assertTrue(p in set s.getPapersFromAuthorName("Paiva"));
 				assertTrue(p in set s.getPapersFromAuthorName("ACR"));
 				assertTrue(p in set u.getPapers());
+				assertTrue(p in set s.getPapersFromTitle("Alloy in domain-specific language engineering"));
 			);
 		);
 		
@@ -94,6 +96,7 @@ class TestGoogleScholar is subclass of MyTestCase
 				dcl p: Paper := new Paper(
 					"A novel approach using Alloy in domain-specific language engineering",
 					2015,
+					"Alloy in domain-specific language engineering",
 					"10.5220/0005228101570164",
 					{"Moreira", "RMLM", "Paiva", "ACR"});
 				s.addPaper(p);

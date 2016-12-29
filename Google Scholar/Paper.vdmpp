@@ -4,29 +4,58 @@ class Paper
 	values
 	-- TODO Define values here
 	instance variables
-		public abstract: Utils`String := [];
+		public abstract: Utils`String := []; 
 		public publicationDate: nat;
 		public DOI: Utils`String := [];
+		public title: Utils`String := [];
 		authors: set of Utils`String := {};
-		cites: set of Paper := {};
-		relatedTo: set of Paper := {};
+		cites: set of Paper := {}; --nao mudar
+		relatedTo: set of Paper := {}; --nao mudar
 		
 		inv card authors > 0; -- pelo menos um autor
 		
 	operations
-		public Paper: Utils`String * nat * Utils`String * Utils`String ==> Paper
-		Paper(ab, pubDate, doi, author) == (
+		public Paper: Utils`String * nat * Utils`String * Utils`String * Utils`String ==> Paper
+		Paper(ab, pubDate, t, doi, author) == (
 			abstract := ab;
 			publicationDate := pubDate;
+			title := t;
 			DOI := doi;
 			authors := {author};
 			return self
 		);
+		
+		
+		public changeAbstract: Utils`String ==> ()
+		changeAbstract(newAbstract) == (
+			abstract := newAbstract;
+		)post abstract~ <> abstract;
+		
+		public changePublicationDate: nat ==> ()
+		changePublicationDate(newPublicationDate) == (
+			publicationDate := newPublicationDate;
+		)post publicationDate~ <> publicationDate;
+		
+		public changeTitle: Utils`String ==> ()
+		changeTitle(newTitle) == (
+			title := newTitle;
+		)post title~ <> title;
+		
+		public changeDOI: Utils`String ==> ()
+		changeDOI(newDOI) == (
+			DOI := newDOI;
+		)post DOI~ <> DOI;
+		
+		public changeAuthors: set of Utils`String ==> ()
+		changeAuthors(newAuthors) == (
+			authors := newAuthors;
+		)post authors~ <> authors;
 			
-		public Paper: Utils`String * nat * Utils`String * set of Utils`String ==> Paper
-		Paper(ab, pubDate, doi, authrs) == (
+		public Paper: Utils`String * nat * Utils`String * Utils`String * set of Utils`String ==> Paper
+		Paper(ab, pubDate, t, doi, authrs) == (
 			abstract := ab;
 			publicationDate := pubDate;
+			title := t;
 			DOI := doi;
 			authors := authrs;
 			return self
@@ -37,6 +66,12 @@ class Paper
 			return authors;
 		)
 		post authors = authors~;
+		
+		public pure getTitle: () ==> Utils`String
+		getTitle() == (
+			return title;
+		)
+		post title = title~;
 			
 		public pure getCitations: () ==> set of Paper
 		getCitations() == (

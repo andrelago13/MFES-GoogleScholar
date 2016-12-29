@@ -20,6 +20,11 @@ class User
 		getEmail() ==
 			return email;
 			
+		public changeEmail: Utils`String ==> ()
+		changeEmail(newEmail) == (
+			email := newEmail;
+		)post email~ <> email;
+			
 		public pure isValidPassword: Utils`String ==> bool
 		isValidPassword(p) == (
 			return isMatchingPassword(p, password);

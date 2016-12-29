@@ -66,6 +66,15 @@ class Scholar
 			return res
 		);
 		
+		public getPapersFromTitle: Utils`String ==> set of Paper
+		getPapersFromTitle(title) == (
+			dcl res : set of Paper := {};
+			for all p in set papers do
+				if(title = p.getTitle()) then
+					res := res union {p};
+			return res
+		);
+		
 		public addPaper: Paper ==> ()
 		addPaper(paper) == (
 			papers := papers union {paper};
