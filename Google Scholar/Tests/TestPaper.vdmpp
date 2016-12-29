@@ -68,7 +68,7 @@ class TestPaper is subclass of MyTestCase
 		
 		public testPapersFromAuthor: () ==> ()
 		testPapersFromAuthor() == (
-			dcl author: Utils`String := "PASCOAL";
+			dcl author: ScholarUtils`String := "PASCOAL";
 			
 			dcl p1: Paper := new Paper("", 0, "", author);
 			dcl p2: Paper := new Paper("", 0, "", "");

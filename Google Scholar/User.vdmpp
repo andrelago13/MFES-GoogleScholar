@@ -4,28 +4,28 @@ class User
 	values
 	
 	instance variables
-		public email: Utils`String := [];
-		public password: Utils`String := [];
+		public email: ScholarUtils`String := [];
+		public password: ScholarUtils`String := [];
 		public papers: set of Paper := {};
 		
 	operations	
-		public User: Utils`String * Utils`String  ==> User
+		public User: ScholarUtils`String * ScholarUtils`String  ==> User
 		User(e, p) == (
 			email := e;
 			password := p;
 			return self;
 		);
 		
-		public pure getEmail: () ==> Utils`String
+		public pure getEmail: () ==> ScholarUtils`String
 		getEmail() ==
 			return email;
 			
-		public pure isValidPassword: Utils`String ==> bool
+		public pure isValidPassword: ScholarUtils`String ==> bool
 		isValidPassword(p) == (
 			return isMatchingPassword(p, password);
 		);
 		
-		public changePassword: Utils`String ==> ()
+		public changePassword: ScholarUtils`String ==> ()
 		changePassword(newPassword) == (
 			password := newPassword;
 		)post password~ <> password;
@@ -55,9 +55,9 @@ class User
 			for all p in set papers do (
 				scores := scores ^ [p.getNumCitedBy(allPapers)];
 			);
-			scores := Utils`Mergesort(scores);
+			scores := Sort`sort(scores);
 			
-			return Utils`GetHIndex(scores);
+			return ScholarUtils`GetHIndex(scores);
 		);
 			
 		public pure getI10Index: set of Paper ==> nat
@@ -74,7 +74,7 @@ class User
 		);
 	
 	functions
-		static public isMatchingPassword: Utils`String * Utils`String -> bool
+		static public isMatchingPassword: ScholarUtils`String * ScholarUtils`String -> bool
 		isMatchingPassword(p1, p2) == (
 			p1 = p2
 		);
