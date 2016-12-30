@@ -18,7 +18,6 @@ class Scholar
 			return nil;
 		);
 		
-		
 		public login: ScholarUtils`String * ScholarUtils`String ==> ()
 		login(e, p) == (
 			dcl u: [User] := getUserByEmail(e);
