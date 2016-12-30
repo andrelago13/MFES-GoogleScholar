@@ -71,7 +71,7 @@ public class GoogleScholar {
 		System.out.println("Hello, " + scholar.getCurrentUser().getEmail());
 		System.out.println();
 		System.out.println("1 - Change password");
-		System.out.println("2 - Search paper");
+		System.out.println("2 - Search paper by author");
 		System.out.println("3 - Add paper");
 		System.out.println();
 		System.out.println("0 - Logout");
@@ -80,7 +80,7 @@ public class GoogleScholar {
 		int choice = s.nextInt();
 		switch (choice) {
 		case 1: changePassword(); break;
-		case 2: searchPaper(); break;
+		case 2: searchPaperByAuthor(); break;
 		case 3: addPaper(); break;
 		case 0: logout(); break;
 		default: userMenu();
@@ -104,7 +104,7 @@ public class GoogleScholar {
 		userMenu();
 	}
 	
-	private void searchPaper() {
+	private void searchPaperByAuthor() {
 		System.out.println("Insert the author name:");
 		Scanner s = new Scanner(System.in);
 		String author = s.nextLine();
@@ -113,23 +113,38 @@ public class GoogleScholar {
 		
 		List<Paper> list = new ArrayList<Paper>(result);
 		
+		int choice = -1;
+		
+		do {
 		for (int i = 0; i < list.size(); i++) {
 			System.out.println((i + 1) + " - " + list.get(i));
 		}
 		System.out.println();
 		System.out.println("0 - Back");
 		
-		int choice = s.nextInt();
-		if (choice == 0)
-			userMenu();
-		else if (choice > 0 && choice <= list.size())
+		choice = s.nextInt();
+		if (choice > 0 && choice <= list.size())
 			viewPaper(list.get(choice));
-		else
-			searchPaper();
+		} while (choice != 0);
+		userMenu();
 	}
 	
 	private void viewPaper(Paper paper) {
-		// TODO
+		System.out.println("Abstract: " + paper.abstract_);
+		System.out.println("Publication date: " + paper.publicationDate);
+		System.out.println("DOI: " + paper.DOI);
+		System.out.println("Authors: " + paper.getAuthors());
+		System.out.println("Citations: " + paper.getCitations());
+		System.out.println("Related to: " + paper.getRelatedPapers());
+		System.out.println();
+		System.out.println("0 - Back");
+		
+		Scanner s = new Scanner(System.in);
+		int choice = s.nextInt();
+		if (choice == 0)
+			return;
+		else
+			viewPaper(paper);
 	}
 	
 	private void addPaper() {
