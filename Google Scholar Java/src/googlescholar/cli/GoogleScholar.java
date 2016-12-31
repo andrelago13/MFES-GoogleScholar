@@ -119,7 +119,7 @@ public class GoogleScholar {
 
 		do {
 			for (int i = 0; i < list.size(); i++) {
-				System.out.println((i + 1) + " - " + list.get(i).abstract_);
+				System.out.println((i + 1) + " - " + list.get(i).getTitle());
 			}
 			System.out.println();
 			System.out.println("0 - Back");
@@ -144,7 +144,7 @@ public class GoogleScholar {
 
 		do {
 			for (int i = 0; i < list.size(); i++) {
-				System.out.println((i + 1) + " - " + list.get(i));
+				System.out.println((i + 1) + " - " + list.get(i).getTitle());
 			}
 			System.out.println();
 			System.out.println("0 - Back");
@@ -165,21 +165,33 @@ public class GoogleScholar {
 		System.out.println("Citations: " + paper.getCitations());
 		System.out.println("Related to: " + paper.getRelatedPapers());
 		System.out.println();
-		System.out.println("1 - Edit abstract");
-		System.out.println("2 - Edit publication date");
-		System.out.println("3 - Edit DOI");
+
+		if (scholar.getCurrentUser().getPapers().contains(paper)) { // Can edit paper?
+			System.out.println("1 - Edit title");
+			System.out.println("2 - Edit abstract");
+			System.out.println("3 - Edit publication date");
+			System.out.println("4 - Edit DOI");
+		}
 		System.out.println();
 		System.out.println("0 - Back");
 
 		Scanner s = new Scanner(System.in);
 		int choice = s.nextInt();
 		s.nextLine(); // Delete endline
-		switch (choice) {
-		case 1: System.out.print("Abstract: "); paper.abstract_ = s.nextLine(); viewPaper(paper); break;
-		case 2: System.out.print("Publication date: "); paper.publicationDate = s.nextInt(); viewPaper(paper); break;
-		case 3: System.out.print("DOI : "); paper.DOI = s.nextLine(); viewPaper(paper); break;
-		case 0: return;
-		default: System.out.println("Invalid option."); viewPaper(paper);
+		if (scholar.getCurrentUser().getPapers().contains(paper)) { // Can edit paper?
+			switch (choice) {
+			case 1: System.out.print("Title: "); paper.changeTitle(s.nextLine()); viewPaper(paper); break;
+			case 2: System.out.print("Abstract: "); paper.changeAbstract(s.nextLine()); viewPaper(paper); break;
+			case 3: System.out.print("Publication date: "); paper.changePublicationDate(s.nextInt()); viewPaper(paper); break;
+			case 4: System.out.print("DOI : "); paper.changeDOI(s.nextLine()); viewPaper(paper); break;
+			case 0: return;
+			default: System.out.println("Invalid option."); viewPaper(paper);
+			}
+		} else {
+			if (choice == 0)
+				return;
+			else
+				System.out.println("Invalid option."); viewPaper(paper);
 		}
 	}
 
