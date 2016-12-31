@@ -185,6 +185,8 @@ public class GoogleScholar {
 
 	private void addPaper() {
 		Scanner s = new Scanner(System.in);
+		System.out.print("Title: ");
+		String title = s.nextLine();
 		System.out.print("Abstract: ");
 		String abstract_ = s.next();
 		System.out.print("Publication date: ");
@@ -193,7 +195,7 @@ public class GoogleScholar {
 		System.out.print("DOI: ");
 		String doi = s.nextLine();
 
-		Paper paper = new Paper(abstract_, publicationDate, doi, new VDMSet());
+		Paper paper = new Paper(abstract_, publicationDate, title, doi, new VDMSet());
 		scholar.addPaper(paper);
 		System.out.println("Paper successfully created.");
 		viewPaper(paper);
