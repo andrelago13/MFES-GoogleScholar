@@ -29,20 +29,20 @@ class TestPaper is subclass of MyTestCase
 		
 		public testGetNumCitedBy: () ==> ()
 		testGetNumCitedBy() == (
-			dcl paper: Paper := new Paper("", 0, "", "");
+			dcl paper: Paper := new Paper("", 0, "", "", "");
 			
-			dcl p1: Paper := new Paper("", 0, "", "");
-			dcl p2: Paper := new Paper("", 0, "", "");
-			dcl p3: Paper := new Paper("", 0, "", "");
-			dcl p4: Paper := new Paper("", 0, "", "");
-			dcl p5: Paper := new Paper("", 0, "", "");
-			dcl p6: Paper := new Paper("", 0, "", "");
-			dcl p7: Paper := new Paper("", 0, "", "");
-			dcl p8: Paper := new Paper("", 0, "", "");
-			dcl p9: Paper := new Paper("", 0, "", "");
-			dcl p10: Paper := new Paper("", 0, "", "");
-			dcl p11: Paper := new Paper("", 0, "", "");
-			dcl p12: Paper := new Paper("", 0, "", "");
+			dcl p1: Paper := new Paper("", 0, "", "", "");
+			dcl p2: Paper := new Paper("", 0, "", "", "");
+			dcl p3: Paper := new Paper("", 0, "", "", "");
+			dcl p4: Paper := new Paper("", 0, "", "", "");
+			dcl p5: Paper := new Paper("", 0, "", "", "");
+			dcl p6: Paper := new Paper("", 0, "", "", "");
+			dcl p7: Paper := new Paper("", 0, "", "", "");
+			dcl p8: Paper := new Paper("", 0, "", "", "");
+			dcl p9: Paper := new Paper("", 0, "", "", "");
+			dcl p10: Paper := new Paper("", 0, "", "", "");
+			dcl p11: Paper := new Paper("", 0, "", "", "");
+			dcl p12: Paper := new Paper("", 0, "", "", "");
 			dcl papers: set of Paper := {
 				paper,
 				p1,
@@ -70,18 +70,18 @@ class TestPaper is subclass of MyTestCase
 		testPapersFromAuthor() == (
 			dcl author: ScholarUtils`String := "PASCOAL";
 			
-			dcl p1: Paper := new Paper("", 0, "", author);
-			dcl p2: Paper := new Paper("", 0, "", "");
-			dcl p3: Paper := new Paper("", 0, "", "");
-			dcl p4: Paper := new Paper("", 0, "", author);
-			dcl p5: Paper := new Paper("", 0, "", "");
-			dcl p6: Paper := new Paper("", 0, "", "");
-			dcl p7: Paper := new Paper("", 0, "", "");
-			dcl p8: Paper := new Paper("", 0, "", author);
-			dcl p9: Paper := new Paper("", 0, "", "");
-			dcl p10: Paper := new Paper("", 0, "", "");
-			dcl p11: Paper := new Paper("", 0, "", author);
-			dcl p12: Paper := new Paper("", 0, "", "");
+			dcl p1: Paper := new Paper("", 0,"", "", author);
+			dcl p2: Paper := new Paper("", 0,"", "", "");
+			dcl p3: Paper := new Paper("", 0,"", "", "");
+			dcl p4: Paper := new Paper("", 0,"", "", author);
+			dcl p5: Paper := new Paper("", 0,"", "", "");
+			dcl p6: Paper := new Paper("", 0,"", "", "");
+			dcl p7: Paper := new Paper("", 0,"", "", "");
+			dcl p8: Paper := new Paper("", 0,"", "", author);
+			dcl p9: Paper := new Paper("", 0,"", "", "");
+			dcl p10: Paper := new Paper("", 0,"", "", "");
+			dcl p11: Paper := new Paper("", 0,"", "", author);
+			dcl p12: Paper := new Paper("", 0,"", "", "");
 			dcl papers: set of Paper := {
 				p1,
 				p2,

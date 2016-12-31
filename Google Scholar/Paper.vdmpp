@@ -7,26 +7,55 @@ class Paper
 		public abstract: ScholarUtils`String := [];
 		public publicationDate: nat;
 		public DOI: ScholarUtils`String := [];
+		public title: ScholarUtils`String := [];
 		authors: set of ScholarUtils`String := {};
-		cites: set of Paper := {};
-		relatedTo: set of Paper := {};
+		cites: set of Paper := {}; --nao mudar
+		relatedTo: set of Paper := {}; --nao mudar
 		
 		inv card authors > 0; -- pelo menos um autor
 		
 	operations
-		public Paper: ScholarUtils`String * nat * ScholarUtils`String * ScholarUtils`String ==> Paper
-		Paper(ab, pubDate, doi, author) == (
+		public Paper: ScholarUtils`String * nat * ScholarUtils`String * ScholarUtils`String * ScholarUtils`String ==> Paper
+		Paper(ab, pubDate, t, doi, author) == (
 			abstract := ab;
 			publicationDate := pubDate;
+			title := t;
 			DOI := doi;
 			authors := {author};
 			return self
 		);
+		
+		
+		public changeAbstract: ScholarUtils`String ==> ()
+		changeAbstract(newAbstract) == (
+			abstract := newAbstract;
+		)post abstract~ <> abstract;
+		
+		public changePublicationDate: nat ==> ()
+		changePublicationDate(newPublicationDate) == (
+			publicationDate := newPublicationDate;
+		)post publicationDate~ <> publicationDate;
+		
+		public changeTitle: ScholarUtils`String ==> ()
+		changeTitle(newTitle) == (
+			title := newTitle;
+		)post title~ <> title;
+		
+		public changeDOI: ScholarUtils`String ==> ()
+		changeDOI(newDOI) == (
+			DOI := newDOI;
+		)post DOI~ <> DOI;
+		
+		public changeAuthors: set of ScholarUtils`String ==> ()
+		changeAuthors(newAuthors) == (
+			authors := newAuthors;
+		)post authors~ <> authors;
 			
-		public Paper: ScholarUtils`String * nat * ScholarUtils`String * set of ScholarUtils`String ==> Paper
-		Paper(ab, pubDate, doi, authrs) == (
+		public Paper: ScholarUtils`String * nat * ScholarUtils`String * ScholarUtils`String * set of ScholarUtils`String ==> Paper
+		Paper(ab, pubDate, t, doi, authrs) == (
 			abstract := ab;
 			publicationDate := pubDate;
+			title := t;
 			DOI := doi;
 			authors := authrs;
 			return self
@@ -35,7 +64,14 @@ class Paper
 		public pure getAuthors: () ==> set of ScholarUtils`String
 		getAuthors() == (
 			return authors;
-		);
+		)
+		post authors = authors~;
+		
+		public pure getTitle: () ==> ScholarUtils`String
+		getTitle() == (
+			return title;
+		)
+		post title = title~;
 			
 		public pure getCitations: () ==> set of Paper
 		getCitations() == (

@@ -19,6 +19,11 @@ class User
 		public pure getEmail: () ==> ScholarUtils`String
 		getEmail() ==
 			return email;
+
+		public changeEmail: ScholarUtils`String ==> ()
+		changeEmail(newEmail) == (
+			email := newEmail;
+		)post email~ <> email;
 			
 		public pure isValidPassword: ScholarUtils`String ==> bool
 		isValidPassword(p) == (

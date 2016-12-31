@@ -69,6 +69,18 @@ public class Scholar {
     return Utils.copy(res);
   }
 
+  public VDMSet getPapersFromTitle(final String title) {
+
+    VDMSet res = SetUtil.set();
+    for (Iterator iterator_6 = papers.iterator(); iterator_6.hasNext(); ) {
+      Paper p = (Paper) iterator_6.next();
+      if (Utils.equals(title, p.getTitle())) {
+        res = SetUtil.union(Utils.copy(res), SetUtil.set(p));
+      }
+    }
+    return Utils.copy(res);
+  }
+
   public void addPaper(final Paper paper) {
 
     papers = SetUtil.union(Utils.copy(papers), SetUtil.set(paper));

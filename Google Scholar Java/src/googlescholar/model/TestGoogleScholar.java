@@ -90,6 +90,7 @@ public class TestGoogleScholar extends MyTestCase {
             new Paper(
                 "A novel approach using Alloy in domain-specific language engineering",
                 2015L,
+                "Alloy in domain-specific language engineering",
                 "10.5220/0005228101570164",
                 SetUtil.set("Moreira", "RMLM", "Paiva", "ACR"));
         s.addPaper(p);
@@ -98,6 +99,9 @@ public class TestGoogleScholar extends MyTestCase {
         assertTrue(SetUtil.inSet(p, s.getPapersFromAuthorName("Paiva")));
         assertTrue(SetUtil.inSet(p, s.getPapersFromAuthorName("ACR")));
         assertTrue(SetUtil.inSet(p, u.getPapers()));
+        assertTrue(
+            SetUtil.inSet(
+                p, s.getPapersFromTitle("Alloy in domain-specific language engineering")));
       }
     }
   }
@@ -112,6 +116,7 @@ public class TestGoogleScholar extends MyTestCase {
             new Paper(
                 "A novel approach using Alloy in domain-specific language engineering",
                 2015L,
+                "Alloy in domain-specific language engineering",
                 "10.5220/0005228101570164",
                 SetUtil.set("Moreira", "RMLM", "Paiva", "ACR"));
         s.addPaper(p);

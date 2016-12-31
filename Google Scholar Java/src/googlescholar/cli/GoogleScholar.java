@@ -130,6 +130,7 @@ public class GoogleScholar {
 	}
 	
 	private void viewPaper(Paper paper) {
+		System.out.println("Title: " + paper.getTitle());
 		System.out.println("Abstract: " + paper.abstract_);
 		System.out.println("Publication date: " + paper.publicationDate);
 		System.out.println("DOI: " + paper.DOI);
