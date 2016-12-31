@@ -71,7 +71,10 @@ public class GoogleScholar {
 	}
 
 	private void userMenu() {
-		System.out.println("Hello, " + scholar.getCurrentUser().getEmail());
+		User user = scholar.getCurrentUser();
+		System.out.println("Hello, " + user.getEmail());
+		System.out.println("h-index: " + user.getHIndex(user.getPapers()));
+		System.out.println("i10-index: " + user.getI10Index(user.getPapers()));
 		System.out.println();
 		System.out.println("1 - Change password");
 		System.out.println("2 - My papers");
@@ -84,7 +87,7 @@ public class GoogleScholar {
 		int choice = s.nextInt();
 		switch (choice) {
 		case 1: changePassword(); break;
-		case 2: papersByUser(scholar.getCurrentUser()); break;
+		case 2: papersByUser(user); break;
 		case 3: searchPaperByAuthor(); break;
 		case 4: addPaper(); break;
 		case 0: logout(); break;
