@@ -5,8 +5,11 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
+import org.overture.codegen.runtime.VDMSet;
+
 import googlescholar.model.Paper;
 import googlescholar.model.Scholar;
+import googlescholar.model.User;
 
 public class GoogleScholar {
 	private Scholar scholar;
@@ -22,7 +25,7 @@ public class GoogleScholar {
 			mainMenu();
 		}
 	}
-	
+
 	private void mainMenu() {
 		System.out.println("1 - Register");
 		System.out.println("2 - Login");
@@ -37,19 +40,19 @@ public class GoogleScholar {
 		default: mainMenu();
 		}
 	}
-	
+
 	private void register() {
 		Scanner s = new Scanner(System.in);
 		System.out.println("Email: ");
 		String email = s.nextLine();
 		System.out.println("Password: ");
 		String password = s.nextLine();
-		
+
 		scholar.register(email, password);
-		
+
 		mainMenu();
 	}
-	
+
 	private void login() {
 		Scanner s = new Scanner(System.in);
 		System.out.println("Email: ");
@@ -58,7 +61,7 @@ public class GoogleScholar {
 		String password = s.nextLine();
 
 		scholar.login(email, password);
-		
+
 		if (!scholar.isLoggedIn()) {
 			System.out.println("Invalid login.");
 			mainMenu();
@@ -66,69 +69,93 @@ public class GoogleScholar {
 			userMenu();
 		}
 	}
-	
+
 	private void userMenu() {
 		System.out.println("Hello, " + scholar.getCurrentUser().getEmail());
 		System.out.println();
 		System.out.println("1 - Change password");
-		System.out.println("2 - Search paper by author");
-		System.out.println("3 - Add paper");
+		System.out.println("2 - My papers");
+		System.out.println("3 - Search paper by author");
+		System.out.println("4 - Add paper");
 		System.out.println();
 		System.out.println("0 - Logout");
-		
+
 		Scanner s = new Scanner(System.in);
 		int choice = s.nextInt();
 		switch (choice) {
 		case 1: changePassword(); break;
-		case 2: searchPaperByAuthor(); break;
-		case 3: addPaper(); break;
+		case 2: papersByUser(scholar.getCurrentUser()); break;
+		case 3: searchPaperByAuthor(); break;
+		case 4: addPaper(); break;
 		case 0: logout(); break;
 		default: userMenu();
 		}
 	}
-	
+
 	private void logout() {
 		scholar.logout();
 		mainMenu();
 	}
-	
+
 	private void changePassword() {
 		System.out.print("New password: ");
 		Scanner s = new Scanner(System.in);
 		String password = s.nextLine();
-		
+
 		scholar.getCurrentUser().changePassword(password);
-		
+
 		System.out.println("Password successfully changed.");
-		
+
 		userMenu();
 	}
-	
+
+	private void papersByUser(User user) {
+		VDMSet papers = user.getPapers();
+
+		List<Paper> list = new ArrayList<Paper>(papers);
+
+		Scanner s = new Scanner(System.in);
+		int choice = -1;
+
+		do {
+			for (int i = 0; i < list.size(); i++) {
+				System.out.println((i + 1) + " - " + list.get(i).abstract_);
+			}
+			System.out.println();
+			System.out.println("0 - Back");
+
+			choice = s.nextInt();
+			if (choice > 0 && choice <= list.size())
+				viewPaper(list.get(choice - 1));
+		} while (choice != 0);
+		userMenu();
+	}
+
 	private void searchPaperByAuthor() {
 		System.out.println("Insert the author name:");
 		Scanner s = new Scanner(System.in);
 		String author = s.nextLine();
-		
+
 		Set result = scholar.getPapersFromAuthorName(author);
-		
+
 		List<Paper> list = new ArrayList<Paper>(result);
-		
+
 		int choice = -1;
-		
+
 		do {
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println((i + 1) + " - " + list.get(i));
-		}
-		System.out.println();
-		System.out.println("0 - Back");
-		
-		choice = s.nextInt();
-		if (choice > 0 && choice <= list.size())
-			viewPaper(list.get(choice));
+			for (int i = 0; i < list.size(); i++) {
+				System.out.println((i + 1) + " - " + list.get(i));
+			}
+			System.out.println();
+			System.out.println("0 - Back");
+
+			choice = s.nextInt();
+			if (choice > 0 && choice <= list.size())
+				viewPaper(list.get(choice - 1));
 		} while (choice != 0);
 		userMenu();
 	}
-	
+
 	private void viewPaper(Paper paper) {
 		System.out.println("Abstract: " + paper.abstract_);
 		System.out.println("Publication date: " + paper.publicationDate);
@@ -137,17 +164,38 @@ public class GoogleScholar {
 		System.out.println("Citations: " + paper.getCitations());
 		System.out.println("Related to: " + paper.getRelatedPapers());
 		System.out.println();
+		System.out.println("1 - Edit abstract");
+		System.out.println("2 - Edit publication date");
+		System.out.println("3 - Edit DOI");
+		System.out.println();
 		System.out.println("0 - Back");
-		
+
 		Scanner s = new Scanner(System.in);
 		int choice = s.nextInt();
-		if (choice == 0)
-			return;
-		else
-			viewPaper(paper);
+		s.nextLine(); // Delete endline
+		switch (choice) {
+		case 1: System.out.print("Abstract: "); paper.abstract_ = s.nextLine(); viewPaper(paper); break;
+		case 2: System.out.print("Publication date: "); paper.publicationDate = s.nextInt(); viewPaper(paper); break;
+		case 3: System.out.print("DOI : "); paper.DOI = s.nextLine(); viewPaper(paper); break;
+		case 0: return;
+		default: System.out.println("Invalid option."); viewPaper(paper);
+		}
 	}
-	
+
 	private void addPaper() {
-		// TODO
+		Scanner s = new Scanner(System.in);
+		System.out.print("Abstract: ");
+		String abstract_ = s.next();
+		System.out.print("Publication date: ");
+		int publicationDate = s.nextInt();
+		s.nextLine();
+		System.out.print("DOI: ");
+		String doi = s.nextLine();
+
+		Paper paper = new Paper(abstract_, publicationDate, doi, new VDMSet());
+		scholar.addPaper(paper);
+		System.out.println("Paper successfully created.");
+		viewPaper(paper);
+		userMenu();
 	}
 }
