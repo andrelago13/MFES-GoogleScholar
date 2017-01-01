@@ -89,8 +89,13 @@ public class Scholar {
 
   public void removePaper(final Paper paper) {
 
-    papers = SetUtil.diff(Utils.copy(papers), SetUtil.set(paper));
-    currentUser.removePaper(paper);
+    VDMSet atomicTmp_1 = SetUtil.diff(Utils.copy(papers), SetUtil.set(paper));
+    VDMSet atomicTmp_2 = SetUtil.diff(currentUser.papers, SetUtil.set(paper));
+    {
+        /* Start of atomic statement */
+      papers = Utils.copy(atomicTmp_1);
+      currentUser.papers = Utils.copy(atomicTmp_2);
+    } /* End of atomic statement */
   }
 
   public Scholar() {}

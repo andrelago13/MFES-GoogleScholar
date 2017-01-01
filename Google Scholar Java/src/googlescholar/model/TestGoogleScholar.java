@@ -52,15 +52,15 @@ public class TestGoogleScholar extends MyTestCase {
         String p = "newpass";
         assertEqual(s.getUserByEmail(e), null);
         s.register(e, p);
-        Boolean andResult_8 = false;
+        Boolean andResult_9 = false;
 
         if (!(Utils.equals(s.getUserByEmail(e), null))) {
           if (s.getUserByEmail(e).isValidPassword(p)) {
-            andResult_8 = true;
+            andResult_9 = true;
           }
         }
 
-        assertTrue(andResult_8);
+        assertTrue(andResult_9);
       }
     }
   }
