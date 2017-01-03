@@ -23,7 +23,7 @@ class User
 		public changeEmail: ScholarUtils`String ==> ()
 		changeEmail(newEmail) == (
 			email := newEmail;
-		)post email~ <> email;
+		)post email = newEmail;
 			
 		public pure isValidPassword: ScholarUtils`String ==> bool
 		isValidPassword(p) == (
@@ -33,7 +33,7 @@ class User
 		public changePassword: ScholarUtils`String ==> ()
 		changePassword(newPassword) == (
 			password := newPassword;
-		)post password~ <> password;
+		)post password = newPassword;
 		
 		public addPaper: Paper ==> ()
 		addPaper(paper) == (

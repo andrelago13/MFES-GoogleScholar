@@ -29,7 +29,7 @@ class Paper
 		public changeAbstract: ScholarUtils`String ==> ()
 		changeAbstract(newAbstract) == (
 			abstract := newAbstract;
-		)post abstract~ <> abstract;
+		)post abstract = newAbstract;
 		
 		public changePublicationDate: nat ==> ()
 		changePublicationDate(newPublicationDate) == (
@@ -39,17 +39,17 @@ class Paper
 		public changeTitle: ScholarUtils`String ==> ()
 		changeTitle(newTitle) == (
 			title := newTitle;
-		)post title~ <> title;
+		)post title = newTitle;
 		
 		public changeDOI: ScholarUtils`String ==> ()
 		changeDOI(newDOI) == (
 			DOI := newDOI;
-		)post DOI~ <> DOI;
+		)post DOI = newDOI;
 		
 		public changeAuthors: set of ScholarUtils`String ==> ()
 		changeAuthors(newAuthors) == (
 			authors := newAuthors;
-		)post authors~ <> authors;
+		)post authors = newAuthors;
 			
 		public Paper: ScholarUtils`String * nat * ScholarUtils`String * ScholarUtils`String * set of ScholarUtils`String ==> Paper
 		Paper(ab, pubDate, t, doi, authrs) == (
