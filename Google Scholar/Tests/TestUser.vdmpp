@@ -18,6 +18,12 @@ class TestUser is subclass of MyTestCase
 			IO`println("	testChanges() starting.");
 			testChanges();
 			IO`println("	testChanges() ended.");
+			IO`println("	testHIndex() starting.");
+			testHIndex();
+			IO`println("	testHIndex() ended.");
+			IO`println("	testI10Index() starting.");
+			testI10Index();
+			IO`println("	testI10Index() ended.");
 			IO`println("'User' tests done.");
 		);
 		
@@ -49,6 +55,265 @@ class TestUser is subclass of MyTestCase
 				assertEqual("newmail@gmail.com", u.getEmail());
 				assertTrue(u.isValidPassword("newpassword"));
 			)			
+		);
+		
+		public testHIndex: () ==> ()
+		testHIndex() == (
+			testHIndex_1();
+			testHIndex_2();
+		);
+		
+		private testHIndex_1: () ==> ()
+		testHIndex_1() == (
+			dcl u: User := new User();
+			dcl p1: Paper := new Paper("", 0, "", "", "");
+			dcl p2: Paper := new Paper("", 0, "", "", "");
+			dcl p3: Paper := new Paper("", 0, "", "", "");
+			dcl p4: Paper := new Paper("", 0, "", "", "");
+			dcl p5: Paper := new Paper("", 0, "", "", "");
+			dcl p_1: Paper := new Paper("", 0, "", "", "");
+			dcl p_2: Paper := new Paper("", 0, "", "", "");
+			dcl p_3: Paper := new Paper("", 0, "", "", "");
+			dcl p_4: Paper := new Paper("", 0, "", "", "");
+			dcl p_5: Paper := new Paper("", 0, "", "", "");
+			dcl p_6: Paper := new Paper("", 0, "", "", "");
+			dcl p_7: Paper := new Paper("", 0, "", "", "");
+			dcl p_8: Paper := new Paper("", 0, "", "", "");
+			dcl p_9: Paper := new Paper("", 0, "", "", "");
+			dcl p_10: Paper := new Paper("", 0, "", "", "");
+			dcl p_11: Paper := new Paper("", 0, "", "", "");
+			dcl papers: set of Paper := {p1, p2, p3, p4, p5, p_1, p_2, p_3,
+					p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11};
+			u.addPaper(p1);
+			u.addPaper(p2);
+			u.addPaper(p3);
+			u.addPaper(p4);
+			u.addPaper(p5);
+			
+			p_3.addCitation(p1);
+			p_5.addCitation(p1);
+			p_7.addCitation(p1);
+			p_10.addCitation(p1);
+			p_11.addCitation(p1);
+			--
+			p_1.addCitation(p2);
+			p_2.addCitation(p2);
+			p_3.addCitation(p2);
+			p_4.addCitation(p2);
+			p_5.addCitation(p2);
+			p_6.addCitation(p2);
+			p_7.addCitation(p2);
+			p_8.addCitation(p2);
+			p_9.addCitation(p2);
+			p_10.addCitation(p2);
+			--
+			p_1.addCitation(p3);
+			p_5.addCitation(p3);
+			p_11.addCitation(p3);
+			--
+			p_2.addCitation(p4);
+			p_3.addCitation(p4);
+			p_5.addCitation(p4);
+			p_6.addCitation(p4);
+			p_7.addCitation(p4);
+			p_9.addCitation(p4);
+			p_10.addCitation(p4);
+			p_11.addCitation(p4);
+			--
+			p_1.addCitation(p5);
+			p_2.addCitation(p5);
+			p_4.addCitation(p5);
+			p_5.addCitation(p5);
+			
+			assertEqual(4, u.getHIndex(papers));
+		);
+		
+		private testHIndex_2: () ==> ()
+		testHIndex_2() == (
+			dcl u: User := new User();
+			dcl p1: Paper := new Paper("", 0, "", "", "");
+			dcl p2: Paper := new Paper("", 0, "", "", "");
+			dcl p3: Paper := new Paper("", 0, "", "", "");
+			dcl p4: Paper := new Paper("", 0, "", "", "");
+			dcl p5: Paper := new Paper("", 0, "", "", "");
+			dcl p_1: Paper := new Paper("", 0, "", "", "");
+			dcl p_2: Paper := new Paper("", 0, "", "", "");
+			dcl p_3: Paper := new Paper("", 0, "", "", "");
+			dcl p_4: Paper := new Paper("", 0, "", "", "");
+			dcl p_5: Paper := new Paper("", 0, "", "", "");
+			dcl p_6: Paper := new Paper("", 0, "", "", "");
+			dcl p_7: Paper := new Paper("", 0, "", "", "");
+			dcl p_8: Paper := new Paper("", 0, "", "", "");
+			dcl p_9: Paper := new Paper("", 0, "", "", "");
+			dcl p_10: Paper := new Paper("", 0, "", "", "");
+			dcl p_11: Paper := new Paper("", 0, "", "", "");
+			dcl p_12: Paper := new Paper("", 0, "", "", "");
+			dcl p_13: Paper := new Paper("", 0, "", "", "");
+			dcl p_14: Paper := new Paper("", 0, "", "", "");
+			dcl p_15: Paper := new Paper("", 0, "", "", "");
+			dcl p_16: Paper := new Paper("", 0, "", "", "");
+			dcl p_17: Paper := new Paper("", 0, "", "", "");
+			dcl p_18: Paper := new Paper("", 0, "", "", "");
+			dcl p_19: Paper := new Paper("", 0, "", "", "");
+			dcl p_20: Paper := new Paper("", 0, "", "", "");
+			dcl p_21: Paper := new Paper("", 0, "", "", "");
+			dcl p_22: Paper := new Paper("", 0, "", "", "");
+			dcl p_23: Paper := new Paper("", 0, "", "", "");
+			dcl p_24: Paper := new Paper("", 0, "", "", "");
+			dcl p_25: Paper := new Paper("", 0, "", "", "");
+			dcl p_26: Paper := new Paper("", 0, "", "", "");
+			dcl p_27: Paper := new Paper("", 0, "", "", "");
+			dcl p_28: Paper := new Paper("", 0, "", "", "");
+			dcl p_29: Paper := new Paper("", 0, "", "", "");
+			dcl papers: set of Paper := {p1, p2, p3, p4, p5, p_1, p_2, p_3,
+					p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14,
+					p_15, p_16, p_17, p_18, p_19, p_20, p_21, p_22, p_23, p_24,
+					p_25, p_26, p_27, p_28, p_29};
+			u.addPaper(p1);
+			u.addPaper(p2);
+			u.addPaper(p3);
+			u.addPaper(p4);
+			u.addPaper(p5);
+			
+			p_24.addCitation(p1);
+			p_26.addCitation(p1);
+			p_27.addCitation(p1);
+			p_28.addCitation(p1);
+			p_29.addCitation(p1);
+			--
+			p_3.addCitation(p2);
+			p_5.addCitation(p2);
+			p_10.addCitation(p2);
+			p_11.addCitation(p2);
+			p_13.addCitation(p2);
+			p_15.addCitation(p2);
+			p_20.addCitation(p2);
+			p_21.addCitation(p2);
+			--
+			p_7.addCitation(p3);
+			p_10.addCitation(p3);
+			p_15.addCitation(p3);
+			--
+			p_1.addCitation(p4);
+			p_2.addCitation(p4);
+			p_4.addCitation(p4);
+			p_5.addCitation(p4);
+			p_6.addCitation(p4);
+			p_8.addCitation(p4);
+			p_9.addCitation(p4);
+			p_10.addCitation(p4);
+			p_11.addCitation(p4);
+			p_12.addCitation(p4);
+			p_13.addCitation(p4);
+			p_14.addCitation(p4);
+			p_16.addCitation(p4);
+			p_17.addCitation(p4);
+			p_18.addCitation(p4);
+			p_19.addCitation(p4);
+			p_20.addCitation(p4);
+			p_21.addCitation(p4);
+			p_22.addCitation(p4);
+			p_23.addCitation(p4);
+			p_24.addCitation(p4);
+			p_25.addCitation(p4);
+			p_26.addCitation(p4);
+			p_27.addCitation(p4);
+			p_29.addCitation(p4);
+			--
+			p_1.addCitation(p5);
+			p_3.addCitation(p5);
+			p_4.addCitation(p5);
+			
+			assertEqual(3, u.getHIndex(papers));
+		);
+		
+		public testI10Index: () ==> ()
+		testI10Index() == (
+			dcl u: User := new User();
+			dcl p1: Paper := new Paper("", 0, "", "", "");
+			dcl p2: Paper := new Paper("", 0, "", "", "");
+			dcl p3: Paper := new Paper("", 0, "", "", "");
+			dcl p4: Paper := new Paper("", 0, "", "", "");
+			dcl p5: Paper := new Paper("", 0, "", "", "");
+			dcl p_1: Paper := new Paper("", 0, "", "", "");
+			dcl p_2: Paper := new Paper("", 0, "", "", "");
+			dcl p_3: Paper := new Paper("", 0, "", "", "");
+			dcl p_4: Paper := new Paper("", 0, "", "", "");
+			dcl p_5: Paper := new Paper("", 0, "", "", "");
+			dcl p_6: Paper := new Paper("", 0, "", "", "");
+			dcl p_7: Paper := new Paper("", 0, "", "", "");
+			dcl p_8: Paper := new Paper("", 0, "", "", "");
+			dcl p_9: Paper := new Paper("", 0, "", "", "");
+			dcl p_10: Paper := new Paper("", 0, "", "", "");
+			dcl p_11: Paper := new Paper("", 0, "", "", "");
+			dcl p_12: Paper := new Paper("", 0, "", "", "");
+			dcl p_13: Paper := new Paper("", 0, "", "", "");
+			dcl p_14: Paper := new Paper("", 0, "", "", "");
+			dcl papers: set of Paper := { p1, p2, p3, p4, p5, p_1, p_2, p_3,
+					p_4, p_5, p_6, p_7, p_8, p_9, p_10, p_11, p_12, p_13, p_14 };
+			u.addPaper(p1);
+			u.addPaper(p2);
+			u.addPaper(p3);
+			u.addPaper(p4);
+			u.addPaper(p5);
+			
+			
+			p_1.addCitation(p1);
+			p_2.addCitation(p1);
+			p_5.addCitation(p1);
+			p_6.addCitation(p1);
+			p_7.addCitation(p1);
+			p_9.addCitation(p1);
+			p_12.addCitation(p1);
+			--
+			p_1.addCitation(p2);
+			p_2.addCitation(p2);
+			p_3.addCitation(p2);
+			p_5.addCitation(p2);
+			p_6.addCitation(p2);
+			p_7.addCitation(p2);
+			p_8.addCitation(p2);
+			p_10.addCitation(p2);
+			p_12.addCitation(p2);
+			p_13.addCitation(p2);
+			p_14.addCitation(p2);
+			--
+			p_1.addCitation(p3);
+			p_2.addCitation(p3);
+			p_3.addCitation(p3);
+			p_4.addCitation(p3);
+			p_5.addCitation(p3);
+			p_6.addCitation(p3);
+			p_7.addCitation(p3);
+			p_8.addCitation(p3);
+			p_9.addCitation(p3);
+			p_11.addCitation(p3);
+			p_12.addCitation(p3);
+			p_13.addCitation(p3);
+			p_14.addCitation(p3);
+			--
+			p_3.addCitation(p4);
+			p_4.addCitation(p4);
+			p_5.addCitation(p4);
+			p_7.addCitation(p4);
+			p_8.addCitation(p4);
+			p_9.addCitation(p4);
+			p_10.addCitation(p4);
+			p_11.addCitation(p4);
+			p_13.addCitation(p4);
+			--
+			p_1.addCitation(p5);
+			p_2.addCitation(p5);
+			p_4.addCitation(p5);
+			p_5.addCitation(p5);
+			p_7.addCitation(p5);
+			p_9.addCitation(p5);
+			p_10.addCitation(p5);
+			p_12.addCitation(p5);
+			p_13.addCitation(p5);
+			p_14.addCitation(p5);
+			
+			assertEqual(3, u.getI10Index(papers));
 		);
 		
 	functions
