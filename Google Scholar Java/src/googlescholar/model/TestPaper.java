@@ -5,15 +5,12 @@ import org.overture.codegen.runtime.*;
 
 @SuppressWarnings("all")
 public class TestPaper extends MyTestCase {
-  public Scholar generalScn() {
-
-    Scholar scholar = new Scholar();
-    return scholar;
-  }
-
   public void testAll() {
 
     IO.println("Starting 'Paper' tests.");
+    IO.println("\ttestChanges() starting.");
+    testChanges();
+    IO.println("\ttestChanges() ended.");
     IO.println("\ttestGetNumCitedBy() starting.");
     testGetNumCitedBy();
     IO.println("\ttestGetNumCitedBy() ended.");
@@ -21,6 +18,27 @@ public class TestPaper extends MyTestCase {
     testPapersFromAuthor();
     IO.println("\ttestPapersFromAuthor() ended.");
     IO.println("'Paper' tests done.");
+  }
+
+  public void testChanges() {
+
+    Paper paper = new Paper("abstract", 1995L, "title", "doi", "author");
+    Paper relatedPaper = new Paper("ab", 2013L, "t", "doi", "a");
+    paper.changeAbstract("new abstract");
+    paper.changePublicationDate(2017L);
+    paper.changeTitle("new title");
+    paper.changeDOI("new DOI");
+    paper.changeAuthors(SetUtil.set("new author 1", "new author 2"));
+    assertEqual("new abstract", paper.getAbstract());
+    assertEqual(2017L, paper.getPublicationDate());
+    assertEqual("new title", paper.getTitle());
+    assertEqual("new DOI", paper.getDOI());
+    assertTrue(SetUtil.inSet("new author 1", paper.getAuthors()));
+    assertTrue(SetUtil.inSet("new author 2", paper.getAuthors()));
+    assertEqual(2L, paper.getAuthors().size());
+    assertEqual(SetUtil.set(), paper.getRelatedPapers());
+    paper.addRelatedPaper(relatedPaper);
+    assertEqual(SetUtil.set(relatedPaper), paper.getRelatedPapers());
   }
 
   public void testGetNumCitedBy() {

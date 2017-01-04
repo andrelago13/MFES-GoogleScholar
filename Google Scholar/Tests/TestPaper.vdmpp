@@ -5,19 +5,16 @@ class TestPaper is subclass of MyTestCase
 	-- TODO Define values here
 	instance variables
 	-- TODO Define instance variables here
-	operations
-		public generalScn: () ==> Scholar
-			generalScn() == (
-				dcl scholar: Scholar := new Scholar();
-				return scholar;
-			);
-		
+	operations		
 		/** TEST CASES WITH VALID INPUTS **/
 		
 		-- Entry point that runs all tests with valid inputs
 		public testAll: () ==> ()
 		testAll() == (
 			IO`println("Starting 'Paper' tests.");
+			IO`println("	testChanges() starting.");
+			testChanges();
+			IO`println("	testChanges() ended.");
 			IO`println("	testGetNumCitedBy() starting.");
 			testGetNumCitedBy();
 			IO`println("	testGetNumCitedBy() ended.");
@@ -25,6 +22,29 @@ class TestPaper is subclass of MyTestCase
 			testPapersFromAuthor();
 			IO`println("	testPapersFromAuthor() ended.");
 			IO`println("'Paper' tests done.");
+		);
+		
+		public testChanges: () ==> ()
+		testChanges() == (
+			dcl paper: Paper := new Paper("abstract", 1995, "title", "doi", "author");
+			dcl relatedPaper: Paper := new Paper("ab", 2013, "t", "doi", "a");
+			
+			paper.changeAbstract("new abstract");
+			paper.changePublicationDate(2017);
+			paper.changeTitle("new title");
+			paper.changeDOI("new DOI");
+			paper.changeAuthors({"new author 1", "new author 2"});
+			assertEqual("new abstract", paper.getAbstract());
+			assertEqual(2017, paper.getPublicationDate());
+			assertEqual("new title", paper.getTitle());
+			assertEqual("new DOI", paper.getDOI());
+			assertTrue("new author 1" in set paper.getAuthors());
+			assertTrue("new author 2" in set paper.getAuthors());
+			assertEqual(2, card paper.getAuthors());
+			assertEqual({}, paper.getRelatedPapers());
+			
+			paper.addRelatedPaper(relatedPaper);
+			assertEqual({relatedPaper}, paper.getRelatedPapers());
 		);
 		
 		public testGetNumCitedBy: () ==> ()

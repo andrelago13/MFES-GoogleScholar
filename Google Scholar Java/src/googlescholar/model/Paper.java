@@ -88,6 +88,11 @@ public class Paper {
     cg_init_Paper_2(ab, pubDate, t, doi, Utils.copy(authrs));
   }
 
+  public String getAbstract() {
+
+    return abstract_;
+  }
+
   public VDMSet getAuthors() {
 
     return Utils.copy(authors);
@@ -96,6 +101,16 @@ public class Paper {
   public String getTitle() {
 
     return title;
+  }
+
+  public Number getPublicationDate() {
+
+    return publicationDate;
+  }
+
+  public String getDOI() {
+
+    return DOI;
   }
 
   public VDMSet getCitations() {
@@ -110,12 +125,12 @@ public class Paper {
 
   public void addCitation(final Paper p) {
 
-    throw new UnsupportedOperationException();
+    cites = SetUtil.union(Utils.copy(cites), SetUtil.set(p));
   }
 
   public void addRelatedPaper(final Paper p) {
 
-    throw new UnsupportedOperationException();
+    relatedTo = SetUtil.union(Utils.copy(relatedTo), SetUtil.set(p));
   }
 
   public Number getNumCitedBy(final VDMSet papers) {
