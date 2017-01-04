@@ -5,26 +5,6 @@ import org.overture.codegen.runtime.*;
 
 @SuppressWarnings("all")
 public class TestGoogleScholar extends MyTestCase {
-  public Scholar generalScn() {
-
-    Scholar scholar = new Scholar();
-    scholar.register("user1@gmail.com", "pass1");
-    scholar.register("user2@gmail.com", "pass2");
-    scholar.register("user3@gmail.com", "pass3");
-    return scholar;
-  }
-
-  public Scholar loggedInScn() {
-
-    {
-      final Scholar s = generalScn();
-      {
-        s.login("user1@gmail.com", "pass1");
-        return s;
-      }
-    }
-  }
-
   public void testAll() {
 
     IO.println("Starting 'Scholar' tests.");
@@ -46,7 +26,7 @@ public class TestGoogleScholar extends MyTestCase {
   public void testRegister() {
 
     {
-      final Scholar s = generalScn();
+      final Scholar s = TestUtils.generalScn();
       {
         String e = "new@gmail.com";
         String p = "newpass";
@@ -68,9 +48,11 @@ public class TestGoogleScholar extends MyTestCase {
   public void testLoginLogout() {
 
     {
-      final Scholar s = generalScn();
+      final Scholar s = TestUtils.generalScn();
       {
         s.login("inexistentuser@gmail.com", "pass1");
+        assertTrue(!(s.isLoggedIn()));
+        s.login("user1@gmail.com", "wrongpass");
         assertTrue(!(s.isLoggedIn()));
         s.login("user1@gmail.com", "pass1");
         assertTrue(s.isLoggedIn());
@@ -83,7 +65,7 @@ public class TestGoogleScholar extends MyTestCase {
   public void testAddPaper() {
 
     {
-      final Scholar s = loggedInScn();
+      final Scholar s = TestUtils.loggedInScn();
       {
         User u = s.getCurrentUser();
         Paper p =
@@ -109,7 +91,7 @@ public class TestGoogleScholar extends MyTestCase {
   public void testRemovePaper() {
 
     {
-      final Scholar s = loggedInScn();
+      final Scholar s = TestUtils.loggedInScn();
       {
         User u = s.getCurrentUser();
         Paper p =

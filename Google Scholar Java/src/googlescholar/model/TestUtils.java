@@ -5,10 +5,24 @@ import org.overture.codegen.runtime.*;
 
 @SuppressWarnings("all")
 public class TestUtils extends MyTestCase {
-  public Scholar generalScn() {
+  public static Scholar generalScn() {
 
     Scholar scholar = new Scholar();
+    scholar.register("user1@gmail.com", "pass1");
+    scholar.register("user2@gmail.com", "pass2");
+    scholar.register("user3@gmail.com", "pass3");
     return scholar;
+  }
+
+  public static Scholar loggedInScn() {
+
+    {
+      final Scholar s = generalScn();
+      {
+        s.login("user1@gmail.com", "pass1");
+        return s;
+      }
+    }
   }
 
   public void testAll() {

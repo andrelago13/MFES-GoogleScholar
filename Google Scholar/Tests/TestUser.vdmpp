@@ -15,6 +15,9 @@ class TestUser is subclass of MyTestCase
 			IO`println("	testAddRemovePaper() starting.");
 			testAddRemovePaper();
 			IO`println("	testAddRemovePaper() ended.");
+			IO`println("	testChanges() starting.");
+			testChanges();
+			IO`println("	testChanges() ended.");
 			IO`println("'User' tests done.");
 		);
 		
@@ -33,6 +36,18 @@ class TestUser is subclass of MyTestCase
 				
 				u.removePaper(p2);
 				assertEqual({}, u.getPapers());
+			)			
+		);
+		
+		public testChanges: () ==> ()
+		testChanges() == (
+			let s = TestUtils`loggedInScn() in (
+				dcl u: User := s.getCurrentUser();
+				
+				u.changeEmail("newmail@gmail.com");
+				u.changePassword("newpassword");
+				assertEqual("newmail@gmail.com", u.getEmail());
+				assertTrue(u.isValidPassword("newpassword"));
 			)			
 		);
 		
