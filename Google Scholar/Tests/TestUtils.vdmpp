@@ -6,11 +6,22 @@ class TestUtils is subclass of MyTestCase
 	instance variables
 	-- TODO Define instance variables here
 	operations
-		public generalScn: () ==> Scholar
-			generalScn() == (
-				dcl scholar: Scholar := new Scholar();
-				return scholar;
+		public static generalScn: () ==> Scholar
+		generalScn() == (
+			dcl scholar: Scholar := new Scholar();
+			scholar.register("user1@gmail.com", "pass1");
+			scholar.register("user2@gmail.com", "pass2");
+			scholar.register("user3@gmail.com", "pass3");
+			return scholar;
+		);
+			
+		public static loggedInScn: () ==> Scholar
+		loggedInScn() == (
+			let s = generalScn() in (
+				s.login("user1@gmail.com", "pass1");
+				return s;
 			);
+		);
 		
 		/** TEST CASES WITH VALID INPUTS **/
 		

@@ -11,6 +11,7 @@ operations
 			new TestGoogleScholar().testAll();
 			new TestPaper().testAll();
 			new TestUtils().testAll();
+			new TestUser().testAll();
 		);
 		
 functions

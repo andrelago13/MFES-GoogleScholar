@@ -5,24 +5,7 @@ class TestGoogleScholar is subclass of MyTestCase
 	-- TODO Define values here
 	instance variables
 	-- TODO Define instance variables here
-	operations
-		public generalScn: () ==> Scholar
-		generalScn() == (
-			dcl scholar: Scholar := new Scholar();
-			scholar.register("user1@gmail.com", "pass1");
-			scholar.register("user2@gmail.com", "pass2");
-			scholar.register("user3@gmail.com", "pass3");
-			return scholar;
-		);
-			
-		public loggedInScn: () ==> Scholar
-		loggedInScn() == (
-			let s = generalScn() in (
-				s.login("user1@gmail.com", "pass1");
-				return s;
-			);
-		);
-		
+	operations		
 		/** TEST CASES WITH VALID INPUTS **/
 		
 		-- Entry point that runs all tests with valid inputs
@@ -46,7 +29,7 @@ class TestGoogleScholar is subclass of MyTestCase
 		
 		public testRegister: () ==> ()
 		testRegister() == (
-			let s = generalScn() in (
+			let s = TestUtils`generalScn() in (
 				dcl e: ScholarUtils`String := "new@gmail.com";
 				dcl p: ScholarUtils`String := "newpass";
 				assertEqual(s.getUserByEmail(e), nil);
@@ -57,7 +40,7 @@ class TestGoogleScholar is subclass of MyTestCase
 		
 		public testLoginLogout: () ==> ()
 		testLoginLogout() == (
-			let s = generalScn() in (
+			let s = TestUtils`generalScn() in (
 				s.login("inexistentuser@gmail.com", "pass1");
 				assertTrue(not s.isLoggedIn());
 				
@@ -74,7 +57,7 @@ class TestGoogleScholar is subclass of MyTestCase
 		
 		public testAddPaper: () ==> ()
 		testAddPaper() == (
-			let s = loggedInScn() in (
+			let s = TestUtils`loggedInScn() in (
 				dcl u: User := s.getCurrentUser();
 				dcl p: Paper := new Paper(
 					"A novel approach using Alloy in domain-specific language engineering",
@@ -94,7 +77,7 @@ class TestGoogleScholar is subclass of MyTestCase
 		
 		public testRemovePaper: () ==> ()
 		testRemovePaper() == (
-			let s = loggedInScn() in(
+			let s = TestUtils`loggedInScn() in(
 				dcl u: User := s.getCurrentUser();
 				dcl p: Paper := new Paper(
 					"A novel approach using Alloy in domain-specific language engineering",

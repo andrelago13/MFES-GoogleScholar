@@ -1,0 +1,43 @@
+class TestUser is subclass of MyTestCase
+	types
+	-- TODO Define types here
+	values
+	-- TODO Define values here
+	instance variables
+	-- TODO Define instance variables here
+	operations		
+		/** TEST CASES WITH VALID INPUTS **/
+		
+		-- Entry point that runs all tests with valid inputs
+		public testAll: () ==> ()
+		testAll() == (
+			IO`println("Starting 'User' tests.");
+			IO`println("	testAddRemovePaper() starting.");
+			testAddRemovePaper();
+			IO`println("	testAddRemovePaper() ended.");
+			IO`println("'User' tests done.");
+		);
+		
+		public testAddRemovePaper: () ==> ()
+		testAddRemovePaper() == (
+			let s = TestUtils`loggedInScn() in (
+				dcl u: User := s.getCurrentUser();
+				dcl p1: Paper := new Paper("a", 2015, "t", "doi", "author");
+				dcl p2: Paper := new Paper("a2", 2016, "t2", "doi2", "author2");
+				s.addPaper(p1);
+				s.addPaper(p2);
+				assertEqual({p1, p2}, u.getPapers());
+				
+				u.removePaper(p1);
+				assertEqual({p2}, u.getPapers());
+				
+				u.removePaper(p2);
+				assertEqual({}, u.getPapers());
+			)			
+		);
+		
+	functions
+		
+	traces
+	-- TODO Define Combinatorial Test Traces here
+end TestUser
