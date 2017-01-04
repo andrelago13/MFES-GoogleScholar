@@ -13,6 +13,8 @@ class Paper
 		relatedTo: set of Paper := {}; --nao mudar
 		
 		inv card authors > 0; -- pelo menos um autor
+		inv not inCitations();
+		inv not inRelated();
 		
 	operations
 		public Paper: ScholarUtils`String * nat * ScholarUtils`String * ScholarUtils`String * ScholarUtils`String ==> Paper
@@ -23,6 +25,16 @@ class Paper
 			DOI := doi;
 			authors := {author};
 			return self
+		);
+		
+		private pure inCitations: () ==> bool
+		inCitations() == (
+			return self in set cites;
+		);
+		
+		private pure inRelated: () ==> bool
+		inRelated() == (
+			return self in set relatedTo;
 		);
 		
 		public changeAbstract: ScholarUtils`String ==> ()
