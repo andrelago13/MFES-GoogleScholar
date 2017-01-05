@@ -131,6 +131,13 @@ class Paper
 		)
 		pre self <> p -- no paper should cite itself
 		post cites = cites~ union {p};
+		
+		public removeCitation: Paper ==> ()
+		removeCitation(p) == (
+			cites := cites \ { p }
+		)
+		pre p in set cites
+		post cites = cites~ \ { p };
 			
 		public addRelatedPaper: Paper ==> ()
 		addRelatedPaper(p) == (
@@ -138,6 +145,13 @@ class Paper
 		)
 		pre self <> p -- a paper should not be related to itself
 		post relatedTo = relatedTo~ union {p};
+		
+		public removeRelatedPaper: Paper ==> ()
+		removeRelatedPaper(p) == (
+			relatedTo := relatedTo \ { p }
+		)
+		pre p in set relatedTo
+		post relatedTo = relatedTo~ \ { p };
 		
 		-- number of papers from "papers" that cite this paper
 		public pure getNumCitedBy: set of Paper ==> nat
