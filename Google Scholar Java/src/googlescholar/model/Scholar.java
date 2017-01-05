@@ -24,15 +24,15 @@ public class Scholar {
   public void login(final String e, final String p) {
 
     User u = getUserByEmail(e);
-    Boolean andResult_9 = false;
+    Boolean andResult_10 = false;
 
     if (!(Utils.equals(u, null))) {
       if (u.isValidPassword(p)) {
-        andResult_9 = true;
+        andResult_10 = true;
       }
     }
 
-    if (andResult_9) {
+    if (andResult_10) {
       currentUser = u;
     }
   }
@@ -69,11 +69,23 @@ public class Scholar {
     return Utils.copy(res);
   }
 
-  public VDMSet getPapersFromTitle(final String title) {
+  public VDMSet getPapersFromDOI(final String doi) {
 
     VDMSet res = SetUtil.set();
     for (Iterator iterator_7 = papers.iterator(); iterator_7.hasNext(); ) {
       Paper p = (Paper) iterator_7.next();
+      if (Utils.equals(doi, p.getDOI())) {
+        res = SetUtil.union(Utils.copy(res), SetUtil.set(p));
+      }
+    }
+    return Utils.copy(res);
+  }
+
+  public VDMSet getPapersFromTitle(final String title) {
+
+    VDMSet res = SetUtil.set();
+    for (Iterator iterator_8 = papers.iterator(); iterator_8.hasNext(); ) {
+      Paper p = (Paper) iterator_8.next();
       if (Utils.equals(title, p.getTitle())) {
         res = SetUtil.union(Utils.copy(res), SetUtil.set(p));
       }

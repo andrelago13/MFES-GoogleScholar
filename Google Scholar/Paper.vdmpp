@@ -9,30 +9,45 @@ class Paper
 		public DOI: ScholarUtils`String := [];
 		public title: ScholarUtils`String := [];
 		authors: set of ScholarUtils`String := {};
-		cites: set of Paper := {}; --nao mudar
-		relatedTo: set of Paper := {}; --nao mudar
+		cites: set of Paper := {};
+		relatedTo: set of Paper := {};
+		parent: [Paper] := nil;
 		
 		inv card authors > 0; -- pelo menos um autor
 		inv not inCitations();
 		inv not inRelated();
 		
 	operations
-		public Paper: ScholarUtils`String * nat * ScholarUtils`String * ScholarUtils`String * ScholarUtils`String ==> Paper
-		Paper(ab, pubDate, t, doi, author) == (
+		public Paper: ScholarUtils`String * nat * ScholarUtils`String * ScholarUtils`String * ScholarUtils`String * [Paper] ==> Paper
+		Paper(ab, pubDate, t, doi, author, p) == (
 			abstract := ab;
 			publicationDate := pubDate;
 			title := t;
 			DOI := doi;
 			authors := {author};
+			parent := p;
+			if p <> nil then (
+				cites := p.cites;
+				relatedTo := p.relatedTo;
+			);
 			return self
 		);
 		
-		-- Clone method
-		public clone: () ==> Paper
-		clone() == (
-			return new Paper(abstract, publicationDate, title, DOI, authors);
+		-- Clone method. If 'makeChild' is true, the new paper will be a child of the current one.
+		public clone: bool ==> Paper
+		clone(makeChild) == (
+			return new Paper(abstract, publicationDate, title, DOI, authors, if makeChild then self else nil);
 		)
-		post RESULT.abstract = abstract and RESULT.publicationDate = publicationDate and RESULT.title = title and RESULT.DOI = DOI and RESULT.authors = authors;
+		pre makeChild => parent = nil
+		post RESULT.abstract = abstract
+			and RESULT.publicationDate = publicationDate
+			and RESULT.title = title
+			and RESULT.DOI = DOI
+			and RESULT.authors = authors
+			and if makeChild then
+				parent = self
+			else
+				parent = nil;
 		
 		private pure inCitations: () ==> bool
 		inCitations() == (
@@ -80,13 +95,18 @@ class Paper
 			authors := authors \ {author};
 		)post authors = authors~ \ {author};
 			
-		public Paper: ScholarUtils`String * nat * ScholarUtils`String * ScholarUtils`String * set of ScholarUtils`String ==> Paper
-		Paper(ab, pubDate, t, doi, authrs) == (
+		public Paper: ScholarUtils`String * nat * ScholarUtils`String * ScholarUtils`String * set of ScholarUtils`String * [Paper] ==> Paper
+		Paper(ab, pubDate, t, doi, authrs, p) == (
 			abstract := ab;
 			publicationDate := pubDate;
 			title := t;
 			DOI := doi;
 			authors := authrs;
+			parent := p;
+			if p <> nil then (
+				cites := p.cites;
+				relatedTo := p.relatedTo;
+			);
 			return self
 		);
 		

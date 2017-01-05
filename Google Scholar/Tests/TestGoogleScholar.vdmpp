@@ -61,7 +61,8 @@ class TestGoogleScholar is subclass of MyTestCase
 					2015,
 					"Alloy in domain-specific language engineering",
 					"10.5220/0005228101570164",
-					{"Moreira", "RMLM", "Paiva", "ACR"});
+					{"Moreira", "RMLM", "Paiva", "ACR"},
+					nil);
 				s.addPaper(p);
 				assertTrue(p in set s.getPapersFromAuthorName("Moreira"));
 				assertTrue(p in set s.getPapersFromAuthorName("RMLM"));

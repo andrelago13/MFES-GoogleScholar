@@ -29,8 +29,8 @@ class TestPaper is subclass of MyTestCase
 		
 		public testChanges: () ==> ()
 		testChanges() == (
-			dcl paper: Paper := new Paper("abstract", 1995, "title", "doi", "author");
-			dcl relatedPaper: Paper := new Paper("ab", 2013, "t", "doi", "a");
+			dcl paper: Paper := new Paper("abstract", 1995, "title", "doi", "author", nil);
+			dcl relatedPaper: Paper := new Paper("ab", 2013, "t", "doi", "a", nil);
 			
 			paper.changeAbstract("new abstract");
 			paper.changePublicationDate(2017);
@@ -52,20 +52,20 @@ class TestPaper is subclass of MyTestCase
 		
 		public testGetNumCitedBy: () ==> ()
 		testGetNumCitedBy() == (
-			dcl paper: Paper := new Paper("", 0, "", "", "");
+			dcl paper: Paper := new Paper("", 0, "", "", "", nil);
 			
-			dcl p1: Paper := new Paper("", 0, "", "", "");
-			dcl p2: Paper := new Paper("", 0, "", "", "");
-			dcl p3: Paper := new Paper("", 0, "", "", "");
-			dcl p4: Paper := new Paper("", 0, "", "", "");
-			dcl p5: Paper := new Paper("", 0, "", "", "");
-			dcl p6: Paper := new Paper("", 0, "", "", "");
-			dcl p7: Paper := new Paper("", 0, "", "", "");
-			dcl p8: Paper := new Paper("", 0, "", "", "");
-			dcl p9: Paper := new Paper("", 0, "", "", "");
-			dcl p10: Paper := new Paper("", 0, "", "", "");
-			dcl p11: Paper := new Paper("", 0, "", "", "");
-			dcl p12: Paper := new Paper("", 0, "", "", "");
+			dcl p1: Paper := new Paper("", 0, "", "", "", nil);
+			dcl p2: Paper := new Paper("", 0, "", "", "", nil);
+			dcl p3: Paper := new Paper("", 0, "", "", "", nil);
+			dcl p4: Paper := new Paper("", 0, "", "", "", nil);
+			dcl p5: Paper := new Paper("", 0, "", "", "", nil);
+			dcl p6: Paper := new Paper("", 0, "", "", "", nil);
+			dcl p7: Paper := new Paper("", 0, "", "", "", nil);
+			dcl p8: Paper := new Paper("", 0, "", "", "", nil);
+			dcl p9: Paper := new Paper("", 0, "", "", "", nil);
+			dcl p10: Paper := new Paper("", 0, "", "", "", nil);
+			dcl p11: Paper := new Paper("", 0, "", "", "", nil);
+			dcl p12: Paper := new Paper("", 0, "", "", "", nil);
 			dcl papers: set of Paper := {
 				paper,
 				p1,
@@ -93,18 +93,18 @@ class TestPaper is subclass of MyTestCase
 		testPapersFromAuthor() == (
 			dcl author: ScholarUtils`String := "PASCOAL";
 			
-			dcl p1: Paper := new Paper("", 0,"", "", author);
-			dcl p2: Paper := new Paper("", 0,"", "", "");
-			dcl p3: Paper := new Paper("", 0,"", "", "");
-			dcl p4: Paper := new Paper("", 0,"", "", author);
-			dcl p5: Paper := new Paper("", 0,"", "", "");
-			dcl p6: Paper := new Paper("", 0,"", "", "");
-			dcl p7: Paper := new Paper("", 0,"", "", "");
-			dcl p8: Paper := new Paper("", 0,"", "", author);
-			dcl p9: Paper := new Paper("", 0,"", "", "");
-			dcl p10: Paper := new Paper("", 0,"", "", "");
-			dcl p11: Paper := new Paper("", 0,"", "", author);
-			dcl p12: Paper := new Paper("", 0,"", "", "");
+			dcl p1: Paper := new Paper("", 0,"", "", author, nil);
+			dcl p2: Paper := new Paper("", 0,"", "", "", nil);
+			dcl p3: Paper := new Paper("", 0,"", "", "", nil);
+			dcl p4: Paper := new Paper("", 0,"", "", author, nil);
+			dcl p5: Paper := new Paper("", 0,"", "", "", nil);
+			dcl p6: Paper := new Paper("", 0,"", "", "", nil);
+			dcl p7: Paper := new Paper("", 0,"", "", "", nil);
+			dcl p8: Paper := new Paper("", 0,"", "", author, nil);
+			dcl p9: Paper := new Paper("", 0,"", "", "", nil);
+			dcl p10: Paper := new Paper("", 0,"", "", "", nil);
+			dcl p11: Paper := new Paper("", 0,"", "", author, nil);
+			dcl p12: Paper := new Paper("", 0,"", "", "", nil);
 			dcl papers: set of Paper := {
 				p1,
 				p2,
@@ -124,8 +124,8 @@ class TestPaper is subclass of MyTestCase
 		
 		public testClone: () ==> ()
 		testClone() == (
-			dcl p: Paper := new Paper("abstract", 1995, "title", "doi", "author");
-			dcl pc: Paper := p.clone();
+			dcl p: Paper := new Paper("abstract", 1995, "title", "doi", "author", nil);
+			dcl pc: Paper := p.clone(false);
 			assertEqual(p.getAbstract(), pc.getAbstract());
 			assertEqual(p.getPublicationDate(), pc.getPublicationDate());
 			assertEqual(p.getTitle(), pc.getTitle());

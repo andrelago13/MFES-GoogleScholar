@@ -12,19 +12,27 @@ public class Paper {
   private VDMSet authors = SetUtil.set();
   private VDMSet cites = SetUtil.set();
   private VDMSet relatedTo = SetUtil.set();
+  private Paper parent = null;
 
   public void cg_init_Paper_2(
       final String ab,
       final Number pubDate,
       final String t,
       final String doi,
-      final VDMSet authrs) {
+      final VDMSet authrs,
+      final Paper p) {
 
     abstract_ = ab;
     publicationDate = pubDate;
     title = t;
     DOI = doi;
     authors = Utils.copy(authrs);
+    parent = p;
+    if (!(Utils.equals(p, null))) {
+      cites = p.cites;
+      relatedTo = p.relatedTo;
+    }
+
     return;
   }
 
@@ -33,13 +41,20 @@ public class Paper {
       final Number pubDate,
       final String t,
       final String doi,
-      final String author) {
+      final String author,
+      final Paper p) {
 
     abstract_ = ab;
     publicationDate = pubDate;
     title = t;
     DOI = doi;
     authors = SetUtil.set(author);
+    parent = p;
+    if (!(Utils.equals(p, null))) {
+      cites = p.cites;
+      relatedTo = p.relatedTo;
+    }
+
     return;
   }
 
@@ -48,14 +63,24 @@ public class Paper {
       final Number pubDate,
       final String t,
       final String doi,
-      final String author) {
+      final String author,
+      final Paper p) {
 
-    cg_init_Paper_1(ab, pubDate, t, doi, author);
+    cg_init_Paper_1(ab, pubDate, t, doi, author, p);
   }
 
-  public Paper cg_clone() {
+  public Paper cg_clone(final Boolean makeChild) {
 
-    return new Paper(abstract_, publicationDate, title, DOI, Utils.copy(authors));
+    Object ternaryIfExp_2 = null;
+
+    if (makeChild) {
+      ternaryIfExp_2 = this;
+    } else {
+      ternaryIfExp_2 = null;
+    }
+
+    return new Paper(
+        abstract_, publicationDate, title, DOI, Utils.copy(authors), ((Paper) ternaryIfExp_2));
   }
 
   private Boolean inCitations() {
@@ -108,9 +133,10 @@ public class Paper {
       final Number pubDate,
       final String t,
       final String doi,
-      final VDMSet authrs) {
+      final VDMSet authrs,
+      final Paper p) {
 
-    cg_init_Paper_2(ab, pubDate, t, doi, Utils.copy(authrs));
+    cg_init_Paper_2(ab, pubDate, t, doi, Utils.copy(authrs), p);
   }
 
   public String getAbstract() {
@@ -153,9 +179,19 @@ public class Paper {
     cites = SetUtil.union(Utils.copy(cites), SetUtil.set(p));
   }
 
+  public void removeCitation(final Paper p) {
+
+    cites = SetUtil.diff(Utils.copy(cites), SetUtil.set(p));
+  }
+
   public void addRelatedPaper(final Paper p) {
 
     relatedTo = SetUtil.union(Utils.copy(relatedTo), SetUtil.set(p));
+  }
+
+  public void removeRelatedPaper(final Paper p) {
+
+    relatedTo = SetUtil.diff(Utils.copy(relatedTo), SetUtil.set(p));
   }
 
   public Number getNumCitedBy(final VDMSet papers) {
@@ -201,6 +237,8 @@ public class Paper {
         + Utils.toString(cites)
         + ", relatedTo := "
         + Utils.toString(relatedTo)
+        + ", parent := "
+        + Utils.toString(parent)
         + "}";
   }
 }

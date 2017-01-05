@@ -29,15 +29,15 @@ public class TestGoogleScholar extends MyTestCase {
         String p = "newpass";
         assertEqual(s.getUserByEmail(e), null);
         s.register(e, p);
-        Boolean andResult_10 = false;
+        Boolean andResult_11 = false;
 
         if (!(Utils.equals(s.getUserByEmail(e), null))) {
           if (s.getUserByEmail(e).isValidPassword(p)) {
-            andResult_10 = true;
+            andResult_11 = true;
           }
         }
 
-        assertTrue(andResult_10);
+        assertTrue(andResult_11);
       }
     }
   }
@@ -71,7 +71,8 @@ public class TestGoogleScholar extends MyTestCase {
                 2015L,
                 "Alloy in domain-specific language engineering",
                 "10.5220/0005228101570164",
-                SetUtil.set("Moreira", "RMLM", "Paiva", "ACR"));
+                SetUtil.set("Moreira", "RMLM", "Paiva", "ACR"),
+                null);
         s.addPaper(p);
         assertTrue(SetUtil.inSet(p, s.getPapersFromAuthorName("Moreira")));
         assertTrue(SetUtil.inSet(p, s.getPapersFromAuthorName("RMLM")));

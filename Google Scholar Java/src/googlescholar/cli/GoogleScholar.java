@@ -248,7 +248,7 @@ public class GoogleScholar {
 				}
 			} else {
 				switch (choice) {
-				case 1: scholar.getCurrentUser().addPaper(paper); System.out.println("Paper successfully added."); break;
+				case 1: scholar.getCurrentUser().addPaper(paper.cg_clone(true)); System.out.println("Paper successfully added."); break;
 				case 0: return;
 				default: System.out.println("Invalid option.");
 				}
@@ -273,7 +273,7 @@ public class GoogleScholar {
 		System.out.print("DOI: ");
 		String doi = s.nextLine();
 
-		Paper paper = new Paper(abstract_, publicationDate, title, doi, new VDMSet());
+		Paper paper = new Paper(abstract_, publicationDate, title, doi, new VDMSet(), null);
 		scholar.getCurrentUser().addPaper(paper);
 		System.out.println("Paper successfully created.");
 		viewPaper(paper);
@@ -336,10 +336,39 @@ public class GoogleScholar {
 		System.out.print("DOI: ");
 		String doi = s.nextLine();
 
-		Paper paper = new Paper(abstract_, publicationDate, title, doi, new VDMSet());
+		Paper paper = new Paper(abstract_, publicationDate, title, doi, new VDMSet(), null);
+		
+		addCitations(paper);
+		
 		scholar.addPaper(paper);
+		
 		System.out.println("Paper successfully created.");
 		viewPaper(paper);
 		robotMode();
+	}
+	
+	private void addCitations(Paper paper) {
+		VDMSet papers = scholar.getPapers();
+		papers.remove(paper);
+
+		List<Paper> list = new ArrayList<Paper>(papers);
+		
+		Scanner s = new Scanner(System.in);
+		int choice = -1;
+		System.out.println("Choose a paper to cite.");
+		do {
+			for (int i = 0; i < list.size(); i++) {
+				System.out.println((i + 1) + " - " + list.get(i).getTitle());
+			}
+			System.out.println();
+			System.out.println("0 - Continue");
+
+			choice = s.nextInt();
+			if (choice > 0 && choice <= list.size()) {
+				paper.addCitation(list.get(choice - 1));
+				System.out.println("Paper successfully cited.");
+				System.out.println("Choose another paper to cite.");
+			}
+		} while (choice != 0);
 	}
 }
