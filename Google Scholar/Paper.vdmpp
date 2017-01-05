@@ -16,6 +16,7 @@ class Paper
 		inv card authors > 0; -- pelo menos um autor
 		inv not inCitations();
 		inv not inRelated();
+		inv parent <> nil <=> parent.parent = nil;
 		
 	operations
 		public Paper: ScholarUtils`String * nat * ScholarUtils`String * ScholarUtils`String * ScholarUtils`String * [Paper] ==> Paper
