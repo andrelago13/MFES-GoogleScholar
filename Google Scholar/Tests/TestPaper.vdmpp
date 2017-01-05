@@ -24,6 +24,9 @@ class TestPaper is subclass of MyTestCase
 			IO`println("	testClone() starting.");
 			testClone();
 			IO`println("	testClone() ended.");
+			IO`println("	testRemovals() starting.");
+			testRemovals();
+			IO`println("	testRemovals() ended.");
 			IO`println("'Paper' tests done.");
 		);
 		
@@ -131,6 +134,36 @@ class TestPaper is subclass of MyTestCase
 			assertEqual(p.getTitle(), pc.getTitle());
 			assertEqual(p.getDOI(), pc.getDOI());
 			assertEqual(p.getAuthors(), pc.getAuthors());
+		);
+		
+		public testRemovals: () ==> ()
+		testRemovals() == (
+			dcl p: Paper := new Paper("abstract", 1995, "title", "doi", "author");
+			dcl p1: Paper := new Paper("", 1, "", "", "");
+			dcl p2: Paper := new Paper("", 1, "", "", "");
+			dcl p3: Paper := new Paper("", 1, "", "", "");
+			dcl p4: Paper := new Paper("", 1, "", "", "");
+			dcl p5: Paper := new Paper("", 1, "", "", "");
+			dcl p6: Paper := new Paper("", 1, "", "", "");
+			p.addRelatedPaper(p1);
+			p.addRelatedPaper(p2);
+			p.addRelatedPaper(p3);
+			p.addRelatedPaper(p4);
+			p.addRelatedPaper(p5);
+			p.addCitation(p2);
+			p.addCitation(p3);
+			p.addCitation(p4);
+			p.addCitation(p5);
+			p.addCitation(p6);
+			
+			assertEqual({p1, p2, p3, p4, p5}, p.getRelatedPapers());
+			assertEqual({p2, p3, p4, p5, p6}, p.getCitations());
+			
+			p.removeRelatedPaper(p4);
+			p.removeCitation(p6);
+			
+			assertEqual({p1, p2, p3, p5}, p.getRelatedPapers());
+			assertEqual({p2, p3, p4, p5}, p.getCitations());
 		);
 		
 	functions
