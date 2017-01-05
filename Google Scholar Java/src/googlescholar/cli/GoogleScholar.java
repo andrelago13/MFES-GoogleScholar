@@ -13,12 +13,14 @@ import googlescholar.model.User;
 
 public class GoogleScholar {
 	private Scholar scholar;
+	private boolean robot;
 
 	public GoogleScholar() {
 		this.scholar = new Scholar();
 	}
 
 	public void start() {
+		robot = false;
 		if (scholar.isLoggedIn()) {
 			userMenu();
 		} else {
@@ -34,8 +36,8 @@ public class GoogleScholar {
 		Scanner s = new Scanner(System.in);
 		int choice = s.nextInt();
 		switch (choice) {
-		case 1: mainMenu(); modeSelectionMenu(); break;
-		case 2: robotMode(); modeSelectionMenu(); break;
+		case 1: robot = false; mainMenu(); modeSelectionMenu(); break;
+		case 2: robot = true; robotMode(); modeSelectionMenu(); break;
 		case 0: break;
 		default: modeSelectionMenu();
 		}
@@ -214,12 +216,14 @@ public class GoogleScholar {
 		System.out.println("Related to: " + paper.getRelatedPapers());
 		System.out.println();
 
-		if (scholar.isLoggedIn()) {
-			if (scholar.getCurrentUser().getPapers().contains(paper)) { // Can edit paper?
+		if (robot || scholar.isLoggedIn()) {
+			if (robot || scholar.getCurrentUser().getPapers().contains(paper)) { // Can edit paper?
 				System.out.println("1 - Edit title");
 				System.out.println("2 - Edit abstract");
 				System.out.println("3 - Edit publication date");
 				System.out.println("4 - Edit DOI");
+				System.out.println("5 - Add author");
+				System.out.println("6 - Remove author");
 			} else {
 				System.out.println("1 - Add paper to my list");
 			}
@@ -230,28 +234,31 @@ public class GoogleScholar {
 		Scanner s = new Scanner(System.in);
 		int choice = s.nextInt();
 		s.nextLine(); // Delete endline
-		if (scholar.isLoggedIn()) {
-			if (scholar.getCurrentUser().getPapers().contains(paper)) { // Can edit paper?
+		if (robot || scholar.isLoggedIn()) {
+			if (robot || scholar.getCurrentUser().getPapers().contains(paper)) { // Can edit paper?
 				switch (choice) {
-				case 1: System.out.print("Title: "); paper.changeTitle(s.nextLine()); viewPaper(paper); break;
-				case 2: System.out.print("Abstract: "); paper.changeAbstract(s.nextLine()); viewPaper(paper); break;
-				case 3: System.out.print("Publication date: "); paper.changePublicationDate(s.nextInt()); viewPaper(paper); break;
-				case 4: System.out.print("DOI : "); paper.changeDOI(s.nextLine()); viewPaper(paper); break;
+				case 1: System.out.print("Title: "); paper.changeTitle(s.nextLine()); break;
+				case 2: System.out.print("Abstract: "); paper.changeAbstract(s.nextLine()); break;
+				case 3: System.out.print("Publication date: "); paper.changePublicationDate(s.nextInt()); break;
+				case 4: System.out.print("DOI: "); paper.changeDOI(s.nextLine()); break;
+				case 5: System.out.print("Author name: "); paper.addAuthor(s.nextLine()); break;
+				case 6: System.out.print("Author name: "); paper.removeAuthor(s.nextLine()); break;
 				case 0: return;
-				default: System.out.println("Invalid option."); viewPaper(paper);
+				default: System.out.println("Invalid option.");
 				}
 			} else {
 				switch (choice) {
-				case 1: scholar.getCurrentUser().addPaper(paper); System.out.println("Paper successfully added."); viewPaper(paper); break;
+				case 1: scholar.getCurrentUser().addPaper(paper); System.out.println("Paper successfully added."); break;
 				case 0: return;
-				default: System.out.println("Invalid option."); viewPaper(paper);
+				default: System.out.println("Invalid option.");
 				}
 			}
 		} else {
 			if (choice == 0)
 				return;
-			System.out.println("Invalid option."); viewPaper(paper);
+			System.out.println("Invalid option.");
 		}
+		viewPaper(paper);
 	}
 
 	private void addPaper() {

@@ -69,6 +69,17 @@ class Paper
 			authors := newAuthors;
 		)post authors = newAuthors;
 			
+		public addAuthor: ScholarUtils`String ==> ()
+		addAuthor(author) == (
+			authors := authors union {author};
+		)post authors = authors~ union {author};
+		
+		-- Removes an author or does nothing if it does not exist
+		public removeAuthor: ScholarUtils`String ==> ()
+		removeAuthor(author) == (
+			authors := authors \ {author};
+		)post authors = authors~ \ {author};
+			
 		public Paper: ScholarUtils`String * nat * ScholarUtils`String * ScholarUtils`String * set of ScholarUtils`String ==> Paper
 		Paper(ab, pubDate, t, doi, authrs) == (
 			abstract := ab;

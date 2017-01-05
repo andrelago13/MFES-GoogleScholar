@@ -93,6 +93,16 @@ public class Paper {
     authors = Utils.copy(newAuthors);
   }
 
+  public void addAuthor(final String author) {
+
+    authors = SetUtil.union(Utils.copy(authors), SetUtil.set(author));
+  }
+
+  public void removeAuthor(final String author) {
+
+    authors = SetUtil.diff(Utils.copy(authors), SetUtil.set(author));
+  }
+
   public Paper(
       final String ab,
       final Number pubDate,
