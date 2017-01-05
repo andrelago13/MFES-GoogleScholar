@@ -31,8 +31,8 @@ public class TestUser extends MyTestCase {
         User u = s.getCurrentUser();
         Paper p1 = new Paper("a", 2015L, "t", "doi", "author");
         Paper p2 = new Paper("a2", 2016L, "t2", "doi2", "author2");
-        s.addPaper(p1);
-        s.addPaper(p2);
+        u.addPaper(p1);
+        u.addPaper(p2);
         assertEqual(SetUtil.set(p1, p2), u.getPapers());
         u.removePaper(p1);
         assertEqual(SetUtil.set(p2), u.getPapers());

@@ -33,8 +33,8 @@ class TestUser is subclass of MyTestCase
 				dcl u: User := s.getCurrentUser();
 				dcl p1: Paper := new Paper("a", 2015, "t", "doi", "author");
 				dcl p2: Paper := new Paper("a2", 2016, "t2", "doi2", "author2");
-				s.addPaper(p1);
-				s.addPaper(p2);
+				u.addPaper(p1);
+				u.addPaper(p2);
 				assertEqual({p1, p2}, u.getPapers());
 				
 				u.removePaper(p1);

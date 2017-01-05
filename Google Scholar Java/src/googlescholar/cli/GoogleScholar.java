@@ -22,24 +22,41 @@ public class GoogleScholar {
 		if (scholar.isLoggedIn()) {
 			userMenu();
 		} else {
-			mainMenu();
+			modeSelectionMenu();
+		}
+	}
+	
+	private void modeSelectionMenu() {
+		System.out.println("1 - User mode");
+		System.out.println("2 - Robot mode");
+		System.out.println();
+		System.out.println("0 - Exit");
+		Scanner s = new Scanner(System.in);
+		int choice = s.nextInt();
+		switch (choice) {
+		case 1: mainMenu(); modeSelectionMenu(); break;
+		case 2: robotMode(); modeSelectionMenu(); break;
+		case 0: break;
+		default: modeSelectionMenu();
 		}
 	}
 
 	private void mainMenu() {
 		System.out.println("1 - Register");
 		System.out.println("2 - Login");
-		System.out.println("3 - Search paper by author");
-		System.out.println("4 - Search user by email");
+		System.out.println("3 - List all papers");
+		System.out.println("4 - Search paper by author");
+		System.out.println("5 - Search user by email");
 		System.out.println();
-		System.out.println("0 - Exit");
+		System.out.println("0 - Back");
 		Scanner s = new Scanner(System.in);
 		int choice = s.nextInt();
 		switch (choice) {
 		case 1: register(); break;
 		case 2: login(); break;
-		case 3: searchPaperByAuthor(); mainMenu(); break;
-		case 4: searchUserByEmail(); mainMenu(); break;
+		case 3: viewPaperList(); mainMenu(); break;
+		case 4: searchPaperByAuthor(); mainMenu(); break;
+		case 5: searchUserByEmail(); mainMenu(); break;
 		case 0: break;
 		default: mainMenu();
 		}
@@ -82,9 +99,10 @@ public class GoogleScholar {
 		System.out.println();
 		System.out.println("1 - Change password");
 		System.out.println("2 - My papers");
-		System.out.println("3 - Search paper by author");
-		System.out.println("4 - Search user by email");
-		System.out.println("5 - Add paper");
+		System.out.println("3 - List all papers");
+		System.out.println("4 - Search paper by author");
+		System.out.println("5 - Search user by email");
+		System.out.println("6 - Add paper");
 		System.out.println();
 		System.out.println("0 - Logout");
 
@@ -93,9 +111,10 @@ public class GoogleScholar {
 		switch (choice) {
 		case 1: changePassword(); break;
 		case 2: papersByUser(user); userMenu(); break;
-		case 3: searchPaperByAuthor(); userMenu(); break;
-		case 4: searchUserByEmail(); userMenu(); break;
-		case 5: addPaper(); break;
+		case 3: viewPaperList(); userMenu(); break;
+		case 4: searchPaperByAuthor(); userMenu(); break;
+		case 5: searchUserByEmail(); userMenu(); break;
+		case 6: addPaper(); break;
 		case 0: logout(); break;
 		default: userMenu();
 		}
@@ -127,6 +146,28 @@ public class GoogleScholar {
 		int choice = -1;
 
 		do {
+			for (int i = 0; i < list.size(); i++) {
+				System.out.println((i + 1) + " - " + list.get(i).getTitle());
+			}
+			System.out.println();
+			System.out.println("0 - Back");
+
+			choice = s.nextInt();
+			if (choice > 0 && choice <= list.size())
+				viewPaper(list.get(choice - 1));
+		} while (choice != 0);
+	}
+
+	private void viewPaperList() {
+		VDMSet papers = scholar.getPapers();
+
+		List<Paper> list = new ArrayList<Paper>(papers);
+		
+		Scanner s = new Scanner(System.in);
+		int choice = -1;
+		
+		do {
+			
 			for (int i = 0; i < list.size(); i++) {
 				System.out.println((i + 1) + " - " + list.get(i).getTitle());
 			}
@@ -201,7 +242,7 @@ public class GoogleScholar {
 				}
 			} else {
 				switch (choice) {
-				case 1: scholar.getCurrentUser().addPaper(paper.cg_clone()); System.out.println("Paper successfully added."); viewPaper(paper); break;
+				case 1: scholar.getCurrentUser().addPaper(paper); System.out.println("Paper successfully added."); viewPaper(paper); break;
 				case 0: return;
 				default: System.out.println("Invalid option."); viewPaper(paper);
 				}
@@ -226,7 +267,7 @@ public class GoogleScholar {
 		String doi = s.nextLine();
 
 		Paper paper = new Paper(abstract_, publicationDate, title, doi, new VDMSet());
-		scholar.addPaper(paper);
+		scholar.getCurrentUser().addPaper(paper);
 		System.out.println("Paper successfully created.");
 		viewPaper(paper);
 		userMenu();
@@ -260,5 +301,38 @@ public class GoogleScholar {
 		case 0: return;
 		default: System.out.println("Invalid option."); showUser(user);
 		}
+	}
+	
+	private void robotMode() {
+		System.out.println("1 - Add paper");
+		System.out.println();
+		System.out.println("0 - Back");
+		
+		Scanner s = new Scanner(System.in);
+		int choice = s.nextInt();
+		switch (choice) {
+		case 1: robotAddPaper(); break;
+		case 0: return;
+		default: System.out.println("Invalid option."); robotMode();
+		}
+	}
+	
+	private void robotAddPaper() {
+		Scanner s = new Scanner(System.in);
+		System.out.print("Title: ");
+		String title = s.nextLine();
+		System.out.print("Abstract: ");
+		String abstract_ = s.next();
+		System.out.print("Publication date: ");
+		int publicationDate = s.nextInt();
+		s.nextLine();
+		System.out.print("DOI: ");
+		String doi = s.nextLine();
+
+		Paper paper = new Paper(abstract_, publicationDate, title, doi, new VDMSet());
+		scholar.addPaper(paper);
+		System.out.println("Paper successfully created.");
+		viewPaper(paper);
+		robotMode();
 	}
 }

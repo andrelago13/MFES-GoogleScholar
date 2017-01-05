@@ -22,9 +22,6 @@ class TestGoogleScholar is subclass of MyTestCase
 			IO`println("	testAddPaper() starting.");
 			testAddPaper();
 			IO`println("	testAddPaper() ended");
-			IO`println("	testRemovePaper() starting.");
-			testRemovePaper();
-			IO`println("	testRemovePaper() ended");
 		);
 		
 		public testRegister: () ==> ()
@@ -70,28 +67,11 @@ class TestGoogleScholar is subclass of MyTestCase
 				assertTrue(p in set s.getPapersFromAuthorName("RMLM"));
 				assertTrue(p in set s.getPapersFromAuthorName("Paiva"));
 				assertTrue(p in set s.getPapersFromAuthorName("ACR"));
-				assertTrue(p in set u.getPapers());
+				
+				-- The logged in user doesn't have the paper
+				assertTrue(not exists up in set u.getPapers() & up.getAbstract() = "A novel approach using Alloy in domain-specific language engineering");
+				
 				assertTrue(p in set s.getPapersFromTitle("Alloy in domain-specific language engineering"));
-			);
-		);
-		
-		public testRemovePaper: () ==> ()
-		testRemovePaper() == (
-			let s = TestUtils`loggedInScn() in(
-				dcl u: User := s.getCurrentUser();
-				dcl p: Paper := new Paper(
-					"A novel approach using Alloy in domain-specific language engineering",
-					2015,
-					"Alloy in domain-specific language engineering",
-					"10.5220/0005228101570164",
-					{"Moreira", "RMLM", "Paiva", "ACR"});
-				s.addPaper(p);
-				s.removePaper(p);
-				assertTrue(p not in set s.getPapersFromAuthorName("Moreira"));
-				assertTrue(p not in set s.getPapersFromAuthorName("RMLM"));
-				assertTrue(p not in set s.getPapersFromAuthorName("Paiva"));
-				assertTrue(p not in set s.getPapersFromAuthorName("ACR"));
-				assertTrue(p not in set u.getPapers());
 			);
 		);
 				

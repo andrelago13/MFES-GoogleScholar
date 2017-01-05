@@ -9,11 +9,6 @@ class Scholar
 		private people: set of ScholarUtils`String := {};
 		private currentUser: [User] := nil;
 		
-		inv
-			forall u in set users &
-				forall p in set u.getPapers() &
-					p in set papers;
-		
 	operations
 		public pure getUserByEmail: ScholarUtils`String ==> [User]
 		getUserByEmail(e) == (
@@ -82,18 +77,14 @@ class Scholar
 		public addPaper: Paper ==> ()
 		addPaper(paper) == (
 			papers := papers union {paper};
-			currentUser.addPaper(paper);
 		)
-		pre isLoggedIn() and paper not in set papers
+		pre paper not in set papers
 		post paper in set papers;
 		
-		public removePaper: Paper ==> ()
-		removePaper(paper) == atomic (
-			papers := papers \ {paper};
-			currentUser.papers := currentUser.papers \ {paper};
-		)
-		pre isLoggedIn() and paper in set papers and paper in set currentUser.getPapers()
-		post papers = papers~ \ {paper};
+		public getPapers: () ==> set of Paper
+		getPapers() == (
+			return papers;
+		);
 	
 	functions
 		

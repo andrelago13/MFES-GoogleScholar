@@ -17,6 +17,9 @@ public class TestPaper extends MyTestCase {
     IO.println("\ttestPapersFromAuthor() starting.");
     testPapersFromAuthor();
     IO.println("\ttestPapersFromAuthor() ended.");
+    IO.println("\ttestClone() starting.");
+    testClone();
+    IO.println("\ttestClone() ended.");
     IO.println("'Paper' tests done.");
   }
 
@@ -82,6 +85,17 @@ public class TestPaper extends MyTestCase {
     Paper p12 = new Paper("", 0L, "", "", "");
     VDMSet papers = SetUtil.set(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12);
     assertEqual(SetUtil.set(p1, p4, p8, p11), Paper.papersFromAuthor(Utils.copy(papers), author));
+  }
+
+  public void testClone() {
+
+    Paper p = new Paper("abstract", 1995L, "title", "doi", "author");
+    Paper pc = p.cg_clone();
+    assertEqual(p.getAbstract(), pc.getAbstract());
+    assertEqual(p.getPublicationDate(), pc.getPublicationDate());
+    assertEqual(p.getTitle(), pc.getTitle());
+    assertEqual(p.getDOI(), pc.getDOI());
+    assertEqual(p.getAuthors(), pc.getAuthors());
   }
 
   public TestPaper() {}

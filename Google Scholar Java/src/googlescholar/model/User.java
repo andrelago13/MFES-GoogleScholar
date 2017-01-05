@@ -59,8 +59,8 @@ public class User {
   public Number getHIndex(final VDMSet allPapers) {
 
     VDMSeq scores = SeqUtil.seq();
-    for (Iterator iterator_7 = papers.iterator(); iterator_7.hasNext(); ) {
-      Paper p = (Paper) iterator_7.next();
+    for (Iterator iterator_8 = papers.iterator(); iterator_8.hasNext(); ) {
+      Paper p = (Paper) iterator_8.next();
       scores =
           SeqUtil.conc(Utils.copy(scores), SeqUtil.seq(p.getNumCitedBy(Utils.copy(allPapers))));
     }
@@ -71,8 +71,8 @@ public class User {
   public Number getI10Index(final VDMSet allPapers) {
 
     Number result = 0L;
-    for (Iterator iterator_8 = papers.iterator(); iterator_8.hasNext(); ) {
-      Paper p = (Paper) iterator_8.next();
+    for (Iterator iterator_9 = papers.iterator(); iterator_9.hasNext(); ) {
+      Paper p = (Paper) iterator_9.next();
       if (p.getNumCitedBy(Utils.copy(allPapers)).longValue() >= 10L) {
         result = result.longValue() + 1L;
       }

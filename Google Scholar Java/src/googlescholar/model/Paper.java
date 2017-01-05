@@ -151,8 +151,8 @@ public class Paper {
   public Number getNumCitedBy(final VDMSet papers) {
 
     Number res = 0L;
-    for (Iterator iterator_2 = papers.iterator(); iterator_2.hasNext(); ) {
-      Paper p = (Paper) iterator_2.next();
+    for (Iterator iterator_3 = papers.iterator(); iterator_3.hasNext(); ) {
+      Paper p = (Paper) iterator_3.next();
       if (SetUtil.inSet(this, p.getCitations())) {
         res = res.longValue() + 1L;
       }
@@ -163,8 +163,8 @@ public class Paper {
   public static VDMSet papersFromAuthor(final VDMSet papers, final String author) {
 
     VDMSet res = SetUtil.set();
-    for (Iterator iterator_3 = papers.iterator(); iterator_3.hasNext(); ) {
-      Paper p = (Paper) iterator_3.next();
+    for (Iterator iterator_4 = papers.iterator(); iterator_4.hasNext(); ) {
+      Paper p = (Paper) iterator_4.next();
       if (SetUtil.inSet(author, p.getAuthors())) {
         res = SetUtil.union(Utils.copy(res), SetUtil.set(p));
       }

@@ -12,8 +12,8 @@ public class Scholar {
 
   public User getUserByEmail(final String e) {
 
-    for (Iterator iterator_4 = users.iterator(); iterator_4.hasNext(); ) {
-      User u = (User) iterator_4.next();
+    for (Iterator iterator_5 = users.iterator(); iterator_5.hasNext(); ) {
+      User u = (User) iterator_5.next();
       if (Utils.equals(u.getEmail(), e)) {
         return u;
       }
@@ -60,8 +60,8 @@ public class Scholar {
   public VDMSet getPapersFromAuthorName(final String name) {
 
     VDMSet res = SetUtil.set();
-    for (Iterator iterator_5 = papers.iterator(); iterator_5.hasNext(); ) {
-      Paper p = (Paper) iterator_5.next();
+    for (Iterator iterator_6 = papers.iterator(); iterator_6.hasNext(); ) {
+      Paper p = (Paper) iterator_6.next();
       if (SetUtil.inSet(name, p.getAuthors())) {
         res = SetUtil.union(Utils.copy(res), SetUtil.set(p));
       }
@@ -72,8 +72,8 @@ public class Scholar {
   public VDMSet getPapersFromTitle(final String title) {
 
     VDMSet res = SetUtil.set();
-    for (Iterator iterator_6 = papers.iterator(); iterator_6.hasNext(); ) {
-      Paper p = (Paper) iterator_6.next();
+    for (Iterator iterator_7 = papers.iterator(); iterator_7.hasNext(); ) {
+      Paper p = (Paper) iterator_7.next();
       if (Utils.equals(title, p.getTitle())) {
         res = SetUtil.union(Utils.copy(res), SetUtil.set(p));
       }
@@ -84,18 +84,11 @@ public class Scholar {
   public void addPaper(final Paper paper) {
 
     papers = SetUtil.union(Utils.copy(papers), SetUtil.set(paper));
-    currentUser.addPaper(paper);
   }
 
-  public void removePaper(final Paper paper) {
+  public VDMSet getPapers() {
 
-    VDMSet atomicTmp_1 = SetUtil.diff(Utils.copy(papers), SetUtil.set(paper));
-    VDMSet atomicTmp_2 = SetUtil.diff(currentUser.papers, SetUtil.set(paper));
-    {
-        /* Start of atomic statement */
-      papers = Utils.copy(atomicTmp_1);
-      currentUser.papers = Utils.copy(atomicTmp_2);
-    } /* End of atomic statement */
+    return Utils.copy(papers);
   }
 
   public Scholar() {}

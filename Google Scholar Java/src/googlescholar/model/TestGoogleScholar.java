@@ -18,9 +18,6 @@ public class TestGoogleScholar extends MyTestCase {
     IO.println("\ttestAddPaper() starting.");
     testAddPaper();
     IO.println("\ttestAddPaper() ended");
-    IO.println("\ttestRemovePaper() starting.");
-    testRemovePaper();
-    IO.println("\ttestRemovePaper() ended");
   }
 
   public void testRegister() {
@@ -32,15 +29,15 @@ public class TestGoogleScholar extends MyTestCase {
         String p = "newpass";
         assertEqual(s.getUserByEmail(e), null);
         s.register(e, p);
-        Boolean andResult_13 = false;
+        Boolean andResult_10 = false;
 
         if (!(Utils.equals(s.getUserByEmail(e), null))) {
           if (s.getUserByEmail(e).isValidPassword(p)) {
-            andResult_13 = true;
+            andResult_10 = true;
           }
         }
 
-        assertTrue(andResult_13);
+        assertTrue(andResult_10);
       }
     }
   }
@@ -80,34 +77,22 @@ public class TestGoogleScholar extends MyTestCase {
         assertTrue(SetUtil.inSet(p, s.getPapersFromAuthorName("RMLM")));
         assertTrue(SetUtil.inSet(p, s.getPapersFromAuthorName("Paiva")));
         assertTrue(SetUtil.inSet(p, s.getPapersFromAuthorName("ACR")));
-        assertTrue(SetUtil.inSet(p, u.getPapers()));
+        Boolean existsExpResult_1 = false;
+        VDMSet set_2 = u.getPapers();
+        for (Iterator iterator_2 = set_2.iterator();
+            iterator_2.hasNext() && !(existsExpResult_1);
+            ) {
+          Paper up = ((Paper) iterator_2.next());
+          existsExpResult_1 =
+              Utils.equals(
+                  up.getAbstract(),
+                  "A novel approach using Alloy in domain-specific language engineering");
+        }
+        assertTrue(!(existsExpResult_1));
+
         assertTrue(
             SetUtil.inSet(
                 p, s.getPapersFromTitle("Alloy in domain-specific language engineering")));
-      }
-    }
-  }
-
-  public void testRemovePaper() {
-
-    {
-      final Scholar s = TestUtils.loggedInScn();
-      {
-        User u = s.getCurrentUser();
-        Paper p =
-            new Paper(
-                "A novel approach using Alloy in domain-specific language engineering",
-                2015L,
-                "Alloy in domain-specific language engineering",
-                "10.5220/0005228101570164",
-                SetUtil.set("Moreira", "RMLM", "Paiva", "ACR"));
-        s.addPaper(p);
-        s.removePaper(p);
-        assertTrue(!(SetUtil.inSet(p, s.getPapersFromAuthorName("Moreira"))));
-        assertTrue(!(SetUtil.inSet(p, s.getPapersFromAuthorName("RMLM"))));
-        assertTrue(!(SetUtil.inSet(p, s.getPapersFromAuthorName("Paiva"))));
-        assertTrue(!(SetUtil.inSet(p, s.getPapersFromAuthorName("ACR"))));
-        assertTrue(!(SetUtil.inSet(p, u.getPapers())));
       }
     }
   }
