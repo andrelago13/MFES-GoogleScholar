@@ -53,6 +53,21 @@ public class Paper {
     cg_init_Paper_1(ab, pubDate, t, doi, author);
   }
 
+  public Paper cg_clone() {
+
+    return new Paper(abstract_, publicationDate, title, DOI, Utils.copy(authors));
+  }
+
+  private Boolean inCitations() {
+
+    return SetUtil.inSet(this, cites);
+  }
+
+  private Boolean inRelated() {
+
+    return SetUtil.inSet(this, relatedTo);
+  }
+
   public void changeAbstract(final String newAbstract) {
 
     abstract_ = newAbstract;

@@ -29,6 +29,8 @@ public class GoogleScholar {
 	private void mainMenu() {
 		System.out.println("1 - Register");
 		System.out.println("2 - Login");
+		System.out.println("3 - Search paper by author");
+		System.out.println("4 - Search user by email");
 		System.out.println();
 		System.out.println("0 - Exit");
 		Scanner s = new Scanner(System.in);
@@ -36,6 +38,8 @@ public class GoogleScholar {
 		switch (choice) {
 		case 1: register(); break;
 		case 2: login(); break;
+		case 3: searchPaperByAuthor(); mainMenu(); break;
+		case 4: searchUserByEmail(); mainMenu(); break;
 		case 0: break;
 		default: mainMenu();
 		}
@@ -79,7 +83,8 @@ public class GoogleScholar {
 		System.out.println("1 - Change password");
 		System.out.println("2 - My papers");
 		System.out.println("3 - Search paper by author");
-		System.out.println("4 - Add paper");
+		System.out.println("4 - Search user by email");
+		System.out.println("5 - Add paper");
 		System.out.println();
 		System.out.println("0 - Logout");
 
@@ -87,9 +92,10 @@ public class GoogleScholar {
 		int choice = s.nextInt();
 		switch (choice) {
 		case 1: changePassword(); break;
-		case 2: papersByUser(user); break;
-		case 3: searchPaperByAuthor(); break;
-		case 4: addPaper(); break;
+		case 2: papersByUser(user); userMenu(); break;
+		case 3: searchPaperByAuthor(); userMenu(); break;
+		case 4: searchUserByEmail(); userMenu(); break;
+		case 5: addPaper(); break;
 		case 0: logout(); break;
 		default: userMenu();
 		}
@@ -131,7 +137,6 @@ public class GoogleScholar {
 			if (choice > 0 && choice <= list.size())
 				viewPaper(list.get(choice - 1));
 		} while (choice != 0);
-		userMenu();
 	}
 
 	private void searchPaperByAuthor() {
@@ -156,7 +161,6 @@ public class GoogleScholar {
 			if (choice > 0 && choice <= list.size())
 				viewPaper(list.get(choice - 1));
 		} while (choice != 0);
-		userMenu();
 	}
 
 	private void viewPaper(Paper paper) {
@@ -174,6 +178,8 @@ public class GoogleScholar {
 			System.out.println("2 - Edit abstract");
 			System.out.println("3 - Edit publication date");
 			System.out.println("4 - Edit DOI");
+		} else {
+			System.out.println("1 - Add paper to my list");
 		}
 		System.out.println();
 		System.out.println("0 - Back");
@@ -191,10 +197,11 @@ public class GoogleScholar {
 			default: System.out.println("Invalid option."); viewPaper(paper);
 			}
 		} else {
-			if (choice == 0)
-				return;
-			else
-				System.out.println("Invalid option."); viewPaper(paper);
+			switch (choice) {
+			case 1: scholar.getCurrentUser().addPaper(paper.cg_clone()); System.out.println("Paper successfully added."); viewPaper(paper); break;
+			case 0: return;
+			default: System.out.println("Invalid option."); viewPaper(paper);
+			}
 		}
 	}
 
@@ -215,5 +222,35 @@ public class GoogleScholar {
 		System.out.println("Paper successfully created.");
 		viewPaper(paper);
 		userMenu();
+	}
+	
+	private void searchUserByEmail() {
+		Scanner s = new Scanner(System.in);
+		System.out.print("Email: ");
+		String email = s.nextLine();
+		User user = scholar.getUserByEmail(email);
+		if (user == null) {
+			System.out.println("User not found.");
+		} else {
+			showUser(user);
+		}
+	}
+	
+	private void showUser(User user) {
+		System.out.println("Email: " + user.getEmail());
+		System.out.println("h-index: " + user.getHIndex(user.getPapers()));
+		System.out.println("i10-index: " + user.getI10Index(user.getPapers()));
+		System.out.println();
+		System.out.println("1 - List papers");
+		System.out.println();
+		System.out.println("0 - Back");
+		
+		Scanner s = new Scanner(System.in);
+		int choice = s.nextInt();
+		switch (choice) {
+		case 1: papersByUser(user); showUser(user); break;
+		case 0: return;
+		default: System.out.println("Invalid option."); showUser(user);
+		}
 	}
 }

@@ -21,6 +21,9 @@ class TestPaper is subclass of MyTestCase
 			IO`println("	testPapersFromAuthor() starting.");
 			testPapersFromAuthor();
 			IO`println("	testPapersFromAuthor() ended.");
+			IO`println("	testClone() starting.");
+			testClone();
+			IO`println("	testClone() ended.");
 			IO`println("'Paper' tests done.");
 		);
 		
@@ -117,6 +120,17 @@ class TestPaper is subclass of MyTestCase
 				p12
 			};
 			assertEqual({p1, p4, p8, p11}, Paper`papersFromAuthor(papers, author));
+		);
+		
+		public testClone: () ==> ()
+		testClone() == (
+			dcl p: Paper := new Paper("abstract", 1995, "title", "doi", "author");
+			dcl pc: Paper := p.clone();
+			assertEqual(p.getAbstract(), pc.getAbstract());
+			assertEqual(p.getPublicationDate(), pc.getPublicationDate());
+			assertEqual(p.getTitle(), pc.getTitle());
+			assertEqual(p.getDOI(), pc.getDOI());
+			assertEqual(p.getAuthors(), pc.getAuthors());
 		);
 		
 	functions

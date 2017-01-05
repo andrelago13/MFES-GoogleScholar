@@ -27,6 +27,13 @@ class Paper
 			return self
 		);
 		
+		-- Clone method
+		public clone: () ==> Paper
+		clone() == (
+			return new Paper(abstract, publicationDate, title, DOI, authors);
+		)
+		post RESULT.abstract = abstract and RESULT.publicationDate = publicationDate and RESULT.title = title and RESULT.DOI = DOI and RESULT.authors = authors;
+		
 		private pure inCitations: () ==> bool
 		inCitations() == (
 			return self in set cites;

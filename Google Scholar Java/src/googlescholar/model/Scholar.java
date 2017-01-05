@@ -24,15 +24,15 @@ public class Scholar {
   public void login(final String e, final String p) {
 
     User u = getUserByEmail(e);
-    Boolean andResult_5 = false;
+    Boolean andResult_9 = false;
 
     if (!(Utils.equals(u, null))) {
       if (u.isValidPassword(p)) {
-        andResult_5 = true;
+        andResult_9 = true;
       }
     }
 
-    if (andResult_5) {
+    if (andResult_9) {
       currentUser = u;
     }
   }
