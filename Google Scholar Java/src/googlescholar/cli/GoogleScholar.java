@@ -224,7 +224,8 @@ public class GoogleScholar {
 				System.out.println("4 - Edit DOI");
 				System.out.println("5 - Add author");
 				System.out.println("6 - Remove author");
-				System.out.println("7 - Remove paper");
+				if (!robot)
+					System.out.println("7 - Remove paper");
 			} else {
 				System.out.println("1 - Add paper to my list");
 			}
@@ -244,6 +245,9 @@ public class GoogleScholar {
 				case 4: System.out.print("DOI: "); paper.changeDOI(s.nextLine()); break;
 				case 5: System.out.print("Author name: "); paper.addAuthor(s.nextLine()); break;
 				case 6: System.out.print("Author name: "); paper.removeAuthor(s.nextLine()); break;
+				case 7: if (!robot) {
+					scholar.getCurrentUser().removePaper(paper); System.out.println("Paper successfully removed."); return;
+				}
 				case 0: return;
 				default: System.out.println("Invalid option.");
 				}
