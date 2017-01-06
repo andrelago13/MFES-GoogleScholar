@@ -9,6 +9,15 @@ class Scholar
 		private people: set of ScholarUtils`String := {};
 		private currentUser: [User] := nil;
 		
+		-- papers in this object have no parent
+		inv forall p in set papers &
+			p.getParent() = nil;
+			
+		-- user papers either have no parent or are children of this object's papers
+		inv forall u in set users &
+			forall p in set u.getPapers() &
+				p.getParent() = nil or p.getParent() in set papers;
+		
 	operations
 		public pure getUserByEmail: ScholarUtils`String ==> [User]
 		getUserByEmail(e) == (

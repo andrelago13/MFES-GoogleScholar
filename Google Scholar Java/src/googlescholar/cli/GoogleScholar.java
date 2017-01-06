@@ -224,6 +224,7 @@ public class GoogleScholar {
 				System.out.println("4 - Edit DOI");
 				System.out.println("5 - Add author");
 				System.out.println("6 - Remove author");
+				System.out.println("7 - Remove paper");
 			} else {
 				System.out.println("1 - Add paper to my list");
 			}

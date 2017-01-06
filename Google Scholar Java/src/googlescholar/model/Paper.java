@@ -174,6 +174,11 @@ public class Paper {
     return Utils.copy(relatedTo);
   }
 
+  public Paper getParent() {
+
+    return parent;
+  }
+
   public void addCitation(final Paper p) {
 
     cites = SetUtil.union(Utils.copy(cites), SetUtil.set(p));

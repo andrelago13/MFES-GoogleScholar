@@ -16,7 +16,9 @@ class Paper
 		inv card authors > 0; -- pelo menos um autor
 		inv not inCitations();
 		inv not inRelated();
-		inv parent <> nil <=> parent.parent = nil;
+		
+		/* invariant below already verified in Scholar class
+		inv parent <> nil <=> parent.parent = nil;*/
 		
 	operations
 		public Paper: ScholarUtils`String * nat * ScholarUtils`String * ScholarUtils`String * ScholarUtils`String * [Paper] ==> Paper
@@ -144,6 +146,11 @@ class Paper
 		public pure getRelatedPapers: () ==> set of Paper
 		getRelatedPapers() == (
 			return relatedTo;
+		);
+		
+		public pure getParent: () ==> [Paper]
+		getParent() == (
+			return parent;
 		);
 			
 		public addCitation: Paper ==> ()
