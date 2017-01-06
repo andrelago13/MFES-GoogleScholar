@@ -138,13 +138,13 @@ class TestPaper is subclass of MyTestCase
 		
 		public testRemovals: () ==> ()
 		testRemovals() == (
-			dcl p: Paper := new Paper("abstract", 1995, "title", "doi", "author");
-			dcl p1: Paper := new Paper("", 1, "", "", "");
-			dcl p2: Paper := new Paper("", 1, "", "", "");
-			dcl p3: Paper := new Paper("", 1, "", "", "");
-			dcl p4: Paper := new Paper("", 1, "", "", "");
-			dcl p5: Paper := new Paper("", 1, "", "", "");
-			dcl p6: Paper := new Paper("", 1, "", "", "");
+			dcl p: Paper := new Paper("abstract", 1995, "title", "doi", "author", nil);
+			dcl p1: Paper := new Paper("", 1, "", "", "", nil);
+			dcl p2: Paper := new Paper("", 1, "", "", "", nil);
+			dcl p3: Paper := new Paper("", 1, "", "", "", nil);
+			dcl p4: Paper := new Paper("", 1, "", "", "", nil);
+			dcl p5: Paper := new Paper("", 1, "", "", "", nil);
+			dcl p6: Paper := new Paper("", 1, "", "", "", nil);
 			p.addRelatedPaper(p1);
 			p.addRelatedPaper(p2);
 			p.addRelatedPaper(p3);
