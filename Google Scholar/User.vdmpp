@@ -9,6 +9,8 @@ class User
 		public papers: set of Paper := {};
 		
 	operations	
+	
+		--constructor
 		public User: ScholarUtils`String * ScholarUtils`String  ==> User
 		User(e, p) == (
 			email := e;
@@ -16,25 +18,30 @@ class User
 			return self;
 		);
 		
+		--returns the user email
 		public pure getEmail: () ==> ScholarUtils`String
 		getEmail() ==
 			return email;
 
+		--changes user email
 		public changeEmail: ScholarUtils`String ==> ()
 		changeEmail(newEmail) == (
 			email := newEmail;
 		)post email = newEmail;
 			
+		--checks if the password is a valid one	
 		public pure isValidPassword: ScholarUtils`String ==> bool
 		isValidPassword(p) == (
 			return isMatchingPassword(p, password);
 		);
 		
+		--change user password
 		public changePassword: ScholarUtils`String ==> ()
 		changePassword(newPassword) == (
 			password := newPassword;
 		)post password = newPassword;
 		
+		--add a new paper
 		public addPaper: Paper ==> ()
 		addPaper(paper) == (
 			papers := papers union {paper};
@@ -42,6 +49,7 @@ class User
 		pre paper not in set papers
 		post paper in set papers;
 		
+		--remove paper
 		public removePaper: Paper ==> ()
 		removePaper(paper) == (
 			papers := papers \ {paper};
@@ -49,10 +57,12 @@ class User
 		pre paper in set papers
 		post papers = papers~ \ {paper}; 
 		
+		--get papers
 		public pure getPapers: () ==> set of Paper
 		getPapers() ==
 			return papers;
-			
+		
+		--calculate and get H index of user	
 		public pure getHIndex: set of Paper ==> nat
 		getHIndex(allPapers) == (
 			dcl scores : seq of nat := [];
@@ -65,6 +75,7 @@ class User
 			return ScholarUtils`GetHIndex(scores);
 		);
 			
+			--calculate and return I10 index
 		public pure getI10Index: set of Paper ==> nat
 		getI10Index(allPapers) == (
 			dcl result : nat := 0;
@@ -79,6 +90,7 @@ class User
 		);
 	
 	functions
+		--checks if the passwords match
 		static public isMatchingPassword: ScholarUtils`String * ScholarUtils`String -> bool
 		isMatchingPassword(p1, p2) == (
 			p1 = p2

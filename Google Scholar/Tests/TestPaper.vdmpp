@@ -155,15 +155,20 @@ class TestPaper is subclass of MyTestCase
 			p.addCitation(p4);
 			p.addCitation(p5);
 			p.addCitation(p6);
+			p.addAuthor("author1");
 			
+			assertEqual({"author", "author1"}, p.getAuthors());
 			assertEqual({p1, p2, p3, p4, p5}, p.getRelatedPapers());
 			assertEqual({p2, p3, p4, p5, p6}, p.getCitations());
 			
 			p.removeRelatedPaper(p4);
 			p.removeCitation(p6);
+			p.removeAuthor("author");
 			
 			assertEqual({p1, p2, p3, p5}, p.getRelatedPapers());
 			assertEqual({p2, p3, p4, p5}, p.getCitations());
+			
+			assertEqual({"author1"}, p.getAuthors());
 		);
 		
 	functions

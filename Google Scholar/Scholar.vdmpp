@@ -19,6 +19,7 @@ class Scholar
 				p.getParent() = nil or p.getParent() in set papers;
 		
 	operations
+		-- returns the user associated with a email
 		public pure getUserByEmail: ScholarUtils`String ==> [User]
 		getUserByEmail(e) == (
 			for all u in set users do
@@ -27,6 +28,7 @@ class Scholar
 			return nil;
 		);
 		
+		-- logs the user in the scholar
 		public login: ScholarUtils`String * ScholarUtils`String ==> ()
 		login(e, p) == (
 			dcl u: [User] := getUserByEmail(e);
@@ -41,6 +43,7 @@ class Scholar
 				or (currentUser = u and u.getEmail() = e and u.isValidPassword(p))
 			);
 			
+		--logs the user out	
 		public logout: () ==> ()
 		logout() == (
 			currentUser := nil;
@@ -48,16 +51,19 @@ class Scholar
 		pre isLoggedIn()
 		post not isLoggedIn();
 		
+		--checks if the user is logged in
 		public pure isLoggedIn: () ==> bool
 		isLoggedIn() == (
 			return currentUser <> nil;
 		);
 		
+		--returns the user
 		public pure getCurrentUser: () ==> [User]
 		getCurrentUser() == (
 			return currentUser;
 		);
 		
+		--register a new user
 		public register: ScholarUtils`String * ScholarUtils`String ==> ()
 		register(e, p) == (
 			users := users union {new User(e, p)};
@@ -65,6 +71,7 @@ class Scholar
 		pre getUserByEmail(e) = nil
 		post getUserByEmail(e).isValidPassword(p);
 		
+		--returns papers with a certain author name
 		public getPapersFromAuthorName: ScholarUtils`String ==> set of Paper
 		getPapersFromAuthorName(name) == (
 			dcl res : set of Paper := {};
@@ -74,6 +81,7 @@ class Scholar
 			return res
 		);
 		
+		--returns papers with a certain DOI 
 		public getPapersFromDOI: ScholarUtils`String ==> set of Paper
 		getPapersFromDOI(doi) == (
 			dcl res : set of Paper := {};
@@ -83,6 +91,7 @@ class Scholar
 			return res
 		);
 		
+		--returns papers with a certain title
 		public getPapersFromTitle: ScholarUtils`String ==> set of Paper
 		getPapersFromTitle(title) == (
 			dcl res : set of Paper := {};
@@ -92,6 +101,7 @@ class Scholar
 			return res
 		);
 		
+		--add a new paper
 		public addPaper: Paper ==> ()
 		addPaper(paper) == (
 			papers := papers union {paper};
@@ -99,6 +109,7 @@ class Scholar
 		pre paper not in set papers
 		post paper in set papers;
 		
+		--returns the papers
 		public getPapers: () ==> set of Paper
 		getPapers() == (
 			return papers;
