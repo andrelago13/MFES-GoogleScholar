@@ -140,12 +140,18 @@ class Paper
 			
 		public pure getCitations: () ==> set of Paper
 		getCitations() == (
-			return cites;
+			if parent <> nil then
+				return parent.getCitations()
+			else
+				return cites;
 		);
 			
 		public pure getRelatedPapers: () ==> set of Paper
 		getRelatedPapers() == (
-			return relatedTo;
+			if parent <> nil then
+				return parent.relatedTo
+			else
+				return relatedTo;
 		);
 		
 		public pure getParent: () ==> [Paper]

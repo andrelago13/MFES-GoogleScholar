@@ -27,6 +27,9 @@ class TestPaper is subclass of MyTestCase
 			IO`println("	testRemovals() starting.");
 			testRemovals();
 			IO`println("	testRemovals() ended.");
+			IO`println("	testParent() starting.");
+			testParent();
+			IO`println("	testParent() ended.");
 			IO`println("'Paper' tests done.");
 		);
 		
@@ -169,6 +172,24 @@ class TestPaper is subclass of MyTestCase
 			assertEqual({p2, p3, p4, p5}, p.getCitations());
 			
 			assertEqual({"author1"}, p.getAuthors());
+		);
+		
+		public testParent: () ==> ()
+		testParent() == (
+			dcl p: Paper := new Paper("abstract", 1995, "title", "doi", "author", nil);
+			dcl p1: Paper := new Paper("abstract", 1995, "title", "doi", "author", p);
+			dcl p2: Paper := new Paper("abstract", 1995, "title", "doi", {"author", "author2"}, p);
+			dcl pCitation: Paper := new Paper("ab", 1994, "t", "d", "a", nil);
+			
+			assertEqual(p1.getParent(), p);
+			assertEqual(p2.getParent(), p);
+			
+			p.addCitation(pCitation);
+			assertEqual({pCitation}, p1.getCitations());
+			assertEqual({pCitation}, p2.getCitations());
+			
+			p.addRelatedPaper(pCitation);
+			assertEqual({pCitation}, p1.getRelatedPapers());
 		);
 		
 	functions
