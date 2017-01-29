@@ -21,6 +21,21 @@ class Paper
 		inv parent <> nil <=> parent.parent = nil;*/
 		
 	operations
+		public Paper: ScholarUtils`String * nat * ScholarUtils`String * ScholarUtils`String * set of ScholarUtils`String * [Paper] ==> Paper
+		Paper(ab, pubDate, t, doi, authrs, p) == (
+			abstract := ab;
+			publicationDate := pubDate;
+			title := t;
+			DOI := doi;
+			authors := authrs;
+			parent := p;
+			if p <> nil then (
+				cites := p.cites;
+				relatedTo := p.relatedTo;
+			);
+			return self
+		);
+	
 		public Paper: ScholarUtils`String * nat * ScholarUtils`String * ScholarUtils`String * ScholarUtils`String * [Paper] ==> Paper
 		Paper(ab, pubDate, t, doi, author, p) == (
 			abstract := ab;
@@ -42,15 +57,15 @@ class Paper
 			return new Paper(abstract, publicationDate, title, DOI, authors, if makeChild then self else nil);
 		)
 		pre makeChild => parent = nil
-		post RESULT.abstract = abstract
-			and RESULT.publicationDate = publicationDate
-			and RESULT.title = title
-			and RESULT.DOI = DOI
-			and RESULT.authors = authors
+		post RESULT.abstract = self.abstract
+			and RESULT.publicationDate = self.publicationDate
+			and RESULT.title = self.title
+			and RESULT.DOI = self.DOI
+			and RESULT.authors = self.authors
 			and if makeChild then
-				parent = self
+				RESULT.parent = self
 			else
-				parent = nil;
+				RESULT.parent = nil;
 		
 		private pure inCitations: () ==> bool
 		inCitations() == (
@@ -97,21 +112,6 @@ class Paper
 		removeAuthor(author) == (
 			authors := authors \ {author};
 		)post authors = authors~ \ {author};
-			
-		public Paper: ScholarUtils`String * nat * ScholarUtils`String * ScholarUtils`String * set of ScholarUtils`String * [Paper] ==> Paper
-		Paper(ab, pubDate, t, doi, authrs, p) == (
-			abstract := ab;
-			publicationDate := pubDate;
-			title := t;
-			DOI := doi;
-			authors := authrs;
-			parent := p;
-			if p <> nil then (
-				cites := p.cites;
-				relatedTo := p.relatedTo;
-			);
-			return self
-		);
 		
 		public pure getAbstract: () ==> ScholarUtils`String
 		getAbstract() == (

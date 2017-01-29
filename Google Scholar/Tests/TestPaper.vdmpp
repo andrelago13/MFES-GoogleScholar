@@ -132,6 +132,8 @@ class TestPaper is subclass of MyTestCase
 		testClone() == (
 			dcl p: Paper := new Paper("abstract", 1995, "title", "doi", "author", nil);
 			dcl pc: Paper := p.clone(false);
+			dcl pc2: Paper := p.clone(true);
+			
 			assertEqual(p.getAbstract(), pc.getAbstract());
 			assertEqual(p.getPublicationDate(), pc.getPublicationDate());
 			assertEqual(p.getTitle(), pc.getTitle());
