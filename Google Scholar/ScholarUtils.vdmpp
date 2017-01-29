@@ -26,12 +26,14 @@ class ScholarUtils
 				s := s ++ { (min + 1) |-> temp };
 			);
 			
-			vals_len := card dom s;
-			for i = 1 to vals_len do (
-				temp := vals_len - i + 1;
-				sum := sum + s(temp);
-				if( sum >= (temp - 1)) then
-					return temp - 1;
+			if(vals_len > 0) then (
+			  vals_len := card dom s;
+			  for i = 1 to vals_len do (
+			  	temp := vals_len - i + 1;
+			  	sum := sum + s(temp);
+			  	if( sum >= (temp - 1)) then
+			  		return temp - 1;
+			  );
 			);
 			
 			return 0;
