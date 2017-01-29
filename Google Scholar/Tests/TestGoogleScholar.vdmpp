@@ -22,6 +22,10 @@ class TestGoogleScholar is subclass of MyTestCase
 			IO`println("	testAddPaper() starting.");
 			testAddPaper();
 			IO`println("	testAddPaper() ended");
+			IO`println("	testInvariant() starting.");
+			testInvariant();
+			IO`println("	testInvariant() ended");
+			IO`println("'Scholar' tests done.");
 		);
 		
 		public testRegister: () ==> ()
@@ -76,6 +80,24 @@ class TestGoogleScholar is subclass of MyTestCase
 				assertTrue(p in set s.getPapersFromTitle("Alloy in domain-specific language engineering"));
 				
 				assertTrue(p in set s.getPapersFromDOI("10.5220/0005228101570164"));
+			);
+		);
+		
+		public testInvariant: () ==> ()
+		testInvariant() == (
+			let s = TestUtils`loggedInScn() in (
+				dcl u: User := s.getCurrentUser();
+				dcl p: Paper := new Paper(
+					"A novel approach using Alloy in domain-specific language engineering",
+					2015,
+					"Alloy in domain-specific language engineering",
+					"10.5220/0005228101570164",
+					{"Moreira", "RMLM", "Paiva", "ACR"},
+					nil);
+				dcl p2: Paper := p.clone(true);
+				s.addPaper(p);
+				u.addPaper(p2);
+				assertEqual({p}, s.getPapers());
 			);
 		);
 				
