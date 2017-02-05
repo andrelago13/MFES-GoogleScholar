@@ -320,6 +320,7 @@ class TestUser is subclass of MyTestCase
 			assertEqual(3, u.getI10Index(papers));
 		);
 		
+		/***** TEST CASES WITH INVALID INPUTS (EXECUTE ONE AT A TIME) ******/
 		public testAddPaperTwice: () ==> ()
 		testAddPaperTwice() == (
 			let s = TestUtils`loggedInScn() in (
