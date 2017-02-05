@@ -17,8 +17,7 @@ class Paper
 		inv not inCitations();
 		inv not inRelated();
 		
-		/* invariant below already verified in Scholar class
-		inv parent <> nil <=> parent.parent = nil;*/
+		inv parent <> nil => parent.parent = nil;
 		
 	operations
 		public Paper: ScholarUtils`String * nat * ScholarUtils`String * ScholarUtils`String * set of ScholarUtils`String * [Paper] ==> Paper
