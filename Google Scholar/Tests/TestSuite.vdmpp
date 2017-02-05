@@ -1,21 +1,11 @@
 class TestSuite
-types
--- TODO Define types here
-values
--- TODO Define values here
-instance variables
--- TODO Define instance variables here
-operations
-		public static runTests: () ==> ()
-		runTests() == (
-			new TestGoogleScholar().testAll();
-			new TestPaper().testAll();
-			new TestUtils().testAll();
-			new TestUser().testAll();
-		);
-		
-functions
--- TODO Define functiones here
-traces
--- TODO Define Combinatorial Test Traces here
+	operations
+			public static runTests: () ==> ()
+			runTests() == (
+				new TestGoogleScholar().testAll();
+				new TestPaper().testAll();
+				new TestUtils().testAll();
+				new TestUser().testAll();
+			);
+			
 end TestSuite

@@ -25,16 +25,19 @@ public class ScholarUtils {
       temp = temp.longValue() + 1L;
       s = MapUtil.override(Utils.copy(s), MapUtil.map(new Maplet(min.longValue() + 1L, temp)));
     }
-    vals_len = MapUtil.dom(Utils.copy(s)).size();
-    long toVar_3 = vals_len.longValue();
+    if (vals_len.longValue() > 0L) {
+      vals_len = MapUtil.dom(Utils.copy(s)).size();
+      long toVar_3 = vals_len.longValue();
 
-    for (Long i = 1L; i <= toVar_3; i++) {
-      temp = vals_len.longValue() - i.longValue() + 1L;
-      sum = sum.longValue() + ((Number) Utils.get(s, temp)).longValue();
-      if (sum.longValue() >= temp.longValue() - 1L) {
-        return temp.longValue() - 1L;
+      for (Long i = 1L; i <= toVar_3; i++) {
+        temp = vals_len.longValue() - i.longValue() + 1L;
+        sum = sum.longValue() + ((Number) Utils.get(s, temp)).longValue();
+        if (sum.longValue() >= temp.longValue() - 1L) {
+          return temp.longValue() - 1L;
+        }
       }
     }
+
     return 0L;
   }
 

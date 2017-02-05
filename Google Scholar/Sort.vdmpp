@@ -1,12 +1,4 @@
 class Sort
-	types
-	-- TODO Define types here
-	values
-	-- TODO Define values here
-	instance variables
-	-- TODO Define instance variables here
-	operations
-	-- TODO Define operations here
 	functions
 		public sort: seq of nat -> seq of nat
 		sort(s) == (
@@ -33,6 +25,4 @@ class Sort
 			end
 		);
 		
-	traces
-	-- TODO Define Combinatorial Test Traces here
 end Sort

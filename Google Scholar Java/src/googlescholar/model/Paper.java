@@ -19,28 +19,6 @@ public class Paper {
       final Number pubDate,
       final String t,
       final String doi,
-      final VDMSet authrs,
-      final Paper p) {
-
-    abstract_ = ab;
-    publicationDate = pubDate;
-    title = t;
-    DOI = doi;
-    authors = Utils.copy(authrs);
-    parent = p;
-    if (!(Utils.equals(p, null))) {
-      cites = p.cites;
-      relatedTo = p.relatedTo;
-    }
-
-    return;
-  }
-
-  public void cg_init_Paper_1(
-      final String ab,
-      final Number pubDate,
-      final String t,
-      final String doi,
       final String author,
       final Paper p) {
 
@@ -58,6 +36,39 @@ public class Paper {
     return;
   }
 
+  public void cg_init_Paper_1(
+      final String ab,
+      final Number pubDate,
+      final String t,
+      final String doi,
+      final VDMSet authrs,
+      final Paper p) {
+
+    abstract_ = ab;
+    publicationDate = pubDate;
+    title = t;
+    DOI = doi;
+    authors = Utils.copy(authrs);
+    parent = p;
+    if (!(Utils.equals(p, null))) {
+      cites = p.cites;
+      relatedTo = p.relatedTo;
+    }
+
+    return;
+  }
+
+  public Paper(
+      final String ab,
+      final Number pubDate,
+      final String t,
+      final String doi,
+      final VDMSet authrs,
+      final Paper p) {
+
+    cg_init_Paper_1(ab, pubDate, t, doi, Utils.copy(authrs), p);
+  }
+
   public Paper(
       final String ab,
       final Number pubDate,
@@ -66,7 +77,7 @@ public class Paper {
       final String author,
       final Paper p) {
 
-    cg_init_Paper_1(ab, pubDate, t, doi, author, p);
+    cg_init_Paper_2(ab, pubDate, t, doi, author, p);
   }
 
   public Paper cg_clone(final Boolean makeChild) {
@@ -128,17 +139,6 @@ public class Paper {
     authors = SetUtil.diff(Utils.copy(authors), SetUtil.set(author));
   }
 
-  public Paper(
-      final String ab,
-      final Number pubDate,
-      final String t,
-      final String doi,
-      final VDMSet authrs,
-      final Paper p) {
-
-    cg_init_Paper_2(ab, pubDate, t, doi, Utils.copy(authrs), p);
-  }
-
   public String getAbstract() {
 
     return abstract_;
@@ -166,12 +166,22 @@ public class Paper {
 
   public VDMSet getCitations() {
 
-    return Utils.copy(cites);
+    if (!(Utils.equals(parent, null))) {
+      return parent.getCitations();
+
+    } else {
+      return Utils.copy(cites);
+    }
   }
 
   public VDMSet getRelatedPapers() {
 
-    return Utils.copy(relatedTo);
+    if (!(Utils.equals(parent, null))) {
+      return parent.relatedTo;
+
+    } else {
+      return Utils.copy(relatedTo);
+    }
   }
 
   public Paper getParent() {

@@ -1,8 +1,4 @@
 class Paper
-	types
-	-- TODO Define types here
-	values
-	-- TODO Define values here
 	instance variables
 		public abstract: ScholarUtils`String := [];
 		public publicationDate: nat;
@@ -14,10 +10,9 @@ class Paper
 		parent: [Paper] := nil;
 		
 		inv card authors > 0; -- pelo menos um autor
+		inv parent <> nil => parent.parent = nil;
 		inv not inCitations();
 		inv not inRelated();
-		
-		inv parent <> nil => parent.parent = nil;
 		
 	operations
 		public Paper: ScholarUtils`String * nat * ScholarUtils`String * ScholarUtils`String * set of ScholarUtils`String * [Paper] ==> Paper
@@ -206,8 +201,4 @@ class Paper
 		)
 		post forall p in set RESULT & author in set p.authors;
 		
-	functions
-	-- TODO Define functiones here
-	traces
-	-- TODO Define Combinatorial Test Traces here
 end Paper

@@ -1,12 +1,7 @@
 class ScholarUtils
 	types
 		public String = seq of char;
-	values
-	-- TODO Define values here
-	instance variables
-	-- TODO Define instance variables here
 	operations
-	
 		public static pure GetHIndex: seq of nat ==> nat
 		GetHIndex(vals) == (
 			dcl s : map nat to nat := {|->};
@@ -46,8 +41,4 @@ class ScholarUtils
 			return n2;
 		);
 		
-	functions
-
-	traces
-	-- TODO Define Combinatorial Test Traces here
 end ScholarUtils

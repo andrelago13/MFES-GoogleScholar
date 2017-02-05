@@ -1,8 +1,4 @@
 class Scholar
-	types
-	
-	values
-	
 	instance variables
 		private users: set of User := {};
 		private papers: set of Paper := {};
@@ -114,9 +110,5 @@ class Scholar
 		getPapers() == (
 			return papers;
 		);
-	
-	functions
-		
-	traces
 	
 end Scholar

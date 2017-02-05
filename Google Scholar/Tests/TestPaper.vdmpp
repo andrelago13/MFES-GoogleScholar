@@ -1,10 +1,4 @@
 class TestPaper is subclass of MyTestCase
-	types
-	-- TODO Define types here
-	values
-	-- TODO Define values here
-	instance variables
-	-- TODO Define instance variables here
 	operations		
 		/** TEST CASES WITH VALID INPUTS **/
 		
@@ -223,8 +217,4 @@ class TestPaper is subclass of MyTestCase
 			p.addCitation(p); -- breaks pre-condition
 		);
 		
-	functions
-		
-	traces
-	-- TODO Define Combinatorial Test Traces here
 end TestPaper

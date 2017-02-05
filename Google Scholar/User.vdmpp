@@ -1,15 +1,10 @@
 class User
-	types
-	
-	values
-	
 	instance variables
 		public email: ScholarUtils`String := [];
 		public password: ScholarUtils`String := [];
 		public papers: set of Paper := {};
 		
 	operations	
-	
 		--constructor
 		public User: ScholarUtils`String * ScholarUtils`String  ==> User
 		User(e, p) == (
@@ -95,7 +90,5 @@ class User
 		isMatchingPassword(p1, p2) == (
 			p1 = p2
 		);
-	
-	traces
-	
+		
 end User

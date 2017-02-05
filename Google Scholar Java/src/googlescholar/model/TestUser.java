@@ -299,6 +299,19 @@ public class TestUser extends MyTestCase {
     assertEqual(3L, u.getI10Index(Utils.copy(papers)));
   }
 
+  public void testAddPaperTwice() {
+
+    {
+      final Scholar s = TestUtils.loggedInScn();
+      {
+        User u = s.getCurrentUser();
+        Paper p = new Paper("abstract", 1995L, "title", "doi", "author", null);
+        u.addPaper(p);
+        u.addPaper(p);
+      }
+    }
+  }
+
   public TestUser() {}
 
   public String toString() {

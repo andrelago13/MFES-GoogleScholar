@@ -44,6 +44,7 @@ public class TestUtils extends MyTestCase {
 
     VDMSeq a1 = SeqUtil.seq(10L, 8L, 5L, 4L, 3L);
     VDMSeq a2 = SeqUtil.seq(25L, 8L, 5L, 3L, 3L);
+    assertEqual(0L, ScholarUtils.GetHIndex(SeqUtil.seq()));
     assertEqual(4L, ScholarUtils.GetHIndex(Utils.copy(a1)));
     assertEqual(3L, ScholarUtils.GetHIndex(Utils.copy(a2)));
   }

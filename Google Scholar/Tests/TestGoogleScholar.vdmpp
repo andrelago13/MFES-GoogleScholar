@@ -1,10 +1,4 @@
 class TestGoogleScholar is subclass of MyTestCase
-	types
-	-- TODO Define types here
-	values
-	-- TODO Define values here
-	instance variables
-	-- TODO Define instance variables here
 	operations		
 		/** TEST CASES WITH VALID INPUTS **/
 		
@@ -100,10 +94,5 @@ class TestGoogleScholar is subclass of MyTestCase
 				assertEqual({p}, s.getPapers());
 			);
 		);
-				
 		
-	functions
-		
-	traces
-	-- TODO Define Combinatorial Test Traces here
 end TestGoogleScholar

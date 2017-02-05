@@ -18,6 +18,10 @@ public class TestGoogleScholar extends MyTestCase {
     IO.println("\ttestAddPaper() starting.");
     testAddPaper();
     IO.println("\ttestAddPaper() ended");
+    IO.println("\ttestInvariant() starting.");
+    testInvariant();
+    IO.println("\ttestInvariant() ended");
+    IO.println("'Scholar' tests done.");
   }
 
   public void testRegister() {
@@ -78,6 +82,7 @@ public class TestGoogleScholar extends MyTestCase {
         assertTrue(SetUtil.inSet(p, s.getPapersFromAuthorName("RMLM")));
         assertTrue(SetUtil.inSet(p, s.getPapersFromAuthorName("Paiva")));
         assertTrue(SetUtil.inSet(p, s.getPapersFromAuthorName("ACR")));
+        assertTrue(SetUtil.inSet(p, s.getPapers()));
         Boolean existsExpResult_1 = false;
         VDMSet set_2 = u.getPapers();
         for (Iterator iterator_2 = set_2.iterator();
@@ -94,6 +99,29 @@ public class TestGoogleScholar extends MyTestCase {
         assertTrue(
             SetUtil.inSet(
                 p, s.getPapersFromTitle("Alloy in domain-specific language engineering")));
+        assertTrue(SetUtil.inSet(p, s.getPapersFromDOI("10.5220/0005228101570164")));
+      }
+    }
+  }
+
+  public void testInvariant() {
+
+    {
+      final Scholar s = TestUtils.loggedInScn();
+      {
+        User u = s.getCurrentUser();
+        Paper p =
+            new Paper(
+                "A novel approach using Alloy in domain-specific language engineering",
+                2015L,
+                "Alloy in domain-specific language engineering",
+                "10.5220/0005228101570164",
+                SetUtil.set("Moreira", "RMLM", "Paiva", "ACR"),
+                null);
+        Paper p2 = p.cg_clone(true);
+        s.addPaper(p);
+        u.addPaper(p2);
+        assertEqual(SetUtil.set(p), s.getPapers());
       }
     }
   }
