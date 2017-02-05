@@ -211,7 +211,7 @@ class TestPaper is subclass of MyTestCase
 		testUserPaperWithParentUserPaper() == (
 			dcl p: Paper := new Paper("abstract", 1995, "title", "doi", "author", nil);
 			dcl p1: Paper := new Paper("abstract", 1995, "title", "doi", "author", p);
-			dcl p2: Paper := new Paper("abstract", 1995, "title", "doi", {"author", "author2"}, p1);
+			dcl p2: Paper := new Paper("abstract", 1995, "title", "doi", {"author", "author2"}, p1); -- a paper cannot be a child of a paper that has a parent (breaks invariant)
 			
 			assertEqual(p2.getParent(), p1)
 		);

@@ -24,6 +24,10 @@ class TestUser is subclass of MyTestCase
 			IO`println("	testI10Index() starting.");
 			testI10Index();
 			IO`println("	testI10Index() ended.");
+			
+			-- Failing tests (due to invalid input)
+			--testAddPaperTwice();
+			
 			IO`println("'User' tests done.");
 		);
 		
@@ -316,6 +320,17 @@ class TestUser is subclass of MyTestCase
 			assertEqual(3, u.getI10Index(papers));
 		);
 		
+		public testAddPaperTwice: () ==> ()
+		testAddPaperTwice() == (
+			let s = TestUtils`loggedInScn() in (
+				dcl u: User := s.getCurrentUser();
+				dcl p: Paper := new Paper("abstract", 1995, "title", "doi", "author", nil);
+				
+				u.addPaper(p);
+				u.addPaper(p); -- breaks pre-condition
+			);
+		);
+			
 	functions
 		
 	traces
